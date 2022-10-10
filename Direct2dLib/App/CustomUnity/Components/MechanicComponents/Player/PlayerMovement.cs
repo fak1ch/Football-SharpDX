@@ -1,4 +1,5 @@
 ﻿using Direct2dLib.App.CustomUnity.Components.MechanicComponents;
+using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players;
 using SharpDX;
 using SharpDX.DirectInput;
 using System.ComponentModel;
@@ -7,19 +8,18 @@ namespace Direct2dLib.App.CustomUnity.Components
 {
     public class PlayerMovement : Component
     {
-        private float _speed;
+        private float _speed = 3;
         private Vector3 _lastFramePosition;
+        private Player _player;
 
-        private bool _gameOnPause = false;
-
-        public PlayerMovement(GameObject go, float speed) : base(go)
+        public PlayerMovement(GameObject go) : base(go)
         {
-            _speed = speed;
+            _player = gameObject.GetComponent<Player>();
         }
 
         public override void Update()
         {
-            if (_gameOnPause) return;
+            if (_player.GameOnPause) return;
 
             Vector3 input = new Vector3();
             _lastFramePosition = transform.position;
@@ -48,11 +48,6 @@ namespace Direct2dLib.App.CustomUnity.Components
             transform.position += input * _speed;
         }
 
-        public void SetGameOnPause(bool value)
-        {
-            _gameOnPause = value;
-        }
-
         public override void OnCollision(Component component)
         {
             if (component.gameObject.TryGetComponent(out VerticalColliders verticalColliders))
@@ -61,6 +56,11 @@ namespace Direct2dLib.App.CustomUnity.Components
             }
 
             if (component.gameObject.TryGetComponent(out HorizontalColliders horizontalColliders))
+            {
+                transform.position = _lastFramePosition;
+            }
+
+            if (component.gameObject.TryGetComponent(out Player player))
             {
                 transform.position = _lastFramePosition;
             }

@@ -39,6 +39,9 @@ namespace Direct2dLib
         private TextFormat textFormatMessageSmall;
         public TextFormat TextFormatMessageSmall { get => textFormatMessageSmall; }
 
+        private TextFormat textFormatMessage40;
+        public TextFormat TextFormatMessage40 { get => textFormatMessage40; }
+
         //Настройки для кистей
         private BrushProperties bp;
 
@@ -107,6 +110,10 @@ namespace Direct2dLib
             textFormatMessageSmall = new TextFormat(writeFactory, "Calibri", 50);
             textFormatMessageSmall.ParagraphAlignment = ParagraphAlignment.Center;
             textFormatMessageSmall.TextAlignment = TextAlignment.Center;
+
+            textFormatMessage40 = new TextFormat(writeFactory, "Calibri", 40);
+            textFormatMessage40.ParagraphAlignment = ParagraphAlignment.Center;
+            textFormatMessage40.TextAlignment = TextAlignment.Center;
 
             //Создание настроей для кистей
             bp.Opacity = 0.8f;

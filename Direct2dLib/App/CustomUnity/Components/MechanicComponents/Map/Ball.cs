@@ -1,5 +1,7 @@
-﻿using Direct2dLib.App.CustomUnity.Utils;
+﻿using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players;
+using Direct2dLib.App.CustomUnity.Utils;
 using SharpDX;
+using System;
 using System.Diagnostics;
 
 namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
@@ -9,6 +11,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
         private float _maxSpeed;
         private float _fadeSpeed;
         private float _speedForPunch;
+        private float _correctAngleValue = 0.25f;
 
         private Vector2 _velocity;
         private bool _needToSavePosition;
@@ -40,13 +43,27 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
 
             transform.position.X += _velocity.X;
             transform.position.Y += _velocity.Y;
+
+
+            Random rnd = new Random();
+            if (_velocity.X != 0 && _velocity.Y == 0)
+            {
+                float value = rnd.NextFloat(-_correctAngleValue, _correctAngleValue);
+                _velocity.Y += value;
+            }
+
+            if (_velocity.Y != 0 && _velocity.X == 0)
+            {
+                float value = rnd.NextFloat(-_correctAngleValue, _correctAngleValue);
+                _velocity.X += value;
+            }
         }
 
         public override void OnCollision(Component component)
         {
-            if(component.gameObject.TryGetComponent(out PlayerMovement playerMovement))
+            if(component.gameObject.TryGetComponent(out Player player))
             {
-                Vector3 directionVector = transform.position - playerMovement.transform.position;
+                Vector3 directionVector = transform.position - player.transform.position;
                 directionVector.Normalize();
 
                 Vector2 newVelocity = new Vector2(directionVector.X, directionVector.Y);

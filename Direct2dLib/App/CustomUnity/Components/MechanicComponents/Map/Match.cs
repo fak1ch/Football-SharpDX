@@ -1,76 +1,64 @@
 ﻿using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Gates;
+using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players;
 using Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI;
 using SharpDX;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using System.Linq;
+using Timer = Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI.Timer;
 
 namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
 {
+    public class MatchData
+    {
+        public RightGate rightGate;
+        public LeftGate leftGate;
+        public GameEndPopUp gameEndPopUp;
+        public Ball ball;
+        public Timer timer;
+        public Score score;
+    }
+
     public class Match : Component
     {
-        private float _startSeconds = 180;
-        private int _pointsForWin = 3;
+        private Dictionary<string, List<Player>> _playerTeamDictionary;
+        private MatchData _data;
 
-        private int _leftTeamPoint = 0;
-        private int _rightTeamPoints = 0;
+        private bool _gameOnPause = true;
 
-        private RightGate _rightGate;
-        private LeftGate _leftGate;
-        private GameEndPopUp _gameEndPopUp;
-        private Ball _ball;
-
-        private Dictionary<string, List<PlayerMovement>> _playerTeamDictionary;
-
-        private Vector3 _playerPosition;
-        private float _currentSeconds;
-        private bool _gameOnPause = false;
-
-        public Match(GameObject go, RightGate rightGate, LeftGate leftGate, GameEndPopUp gameEndPopUp, Ball ball) : base(go)
+        public Match(GameObject go, MatchData data) : base(go)
         {
-            _playerTeamDictionary = new Dictionary<string, List<PlayerMovement>>();
-            _playerTeamDictionary.Add("Left", new List<PlayerMovement>());
-            _playerTeamDictionary.Add("Right", new List<PlayerMovement>());
+            _playerTeamDictionary = new Dictionary<string, List<Player>>();
+            _playerTeamDictionary.Add("Left", new List<Player>());
+            _playerTeamDictionary.Add("Right", new List<Player>());
 
-            _rightGate = rightGate;
-            _leftGate = leftGate;
-            _gameEndPopUp = gameEndPopUp;
-            _ball = ball;
+            _data = data;
 
-            _rightGate.OnWasScoredGoal += HandleGoal;
-            _leftGate.OnWasScoredGoal += HandleGoal;
+            _data.rightGate.OnWasScoredGoal += HandleGoal;
+            _data.leftGate.OnWasScoredGoal += HandleGoal;
+            _data.timer.OnTimeEnd += TimeEnd;
 
-            _playerPosition = new Vector3(250, 350, 0);
-            StartTimer();
+            _data.gameEndPopUp.Initialize(this);
 
-            gameEndPopUp.Initialize(this);
-        }
-
-        public override void Update()
-        {
-            UpdatePointsText();
-            UpdateTimeText();
+            _data.timer.RestartTimer();
         }
 
         public void RestartMatch()
         {
-            _currentSeconds = _startSeconds;
-            _leftTeamPoint = 0;
-            _rightTeamPoints = 0;
-
             ReturnPlayersAndBallForHisPlaces();
-            StartTimer();
+            _data.timer.RestartTimer();
+            _data.score.RestartScore();
             SetGameOnPause(false);
         }
 
         private void ReturnPlayersAndBallForHisPlaces()
         {
-            _ball.ReturnToStartPosition();
+            _data.ball.ReturnToStartPosition();
             foreach (var team in _playerTeamDictionary)
             {
                 foreach (var player in team.Value)
                 {
-                    player.transform.position = _playerPosition;
+                    player.ReturnToStartPosition();
                 }
             }
         }
@@ -81,23 +69,23 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
 
             if (leftTeamScoreGoal)
             {
-                _leftTeamPoint++;
+                _data.score.LeftTeamPoint++;
             }
             else
             {
-                _rightTeamPoints++;
+                _data.score.RightTeamPoints++;
             }
 
             ReturnPlayersAndBallForHisPlaces();
 
-            if (_leftTeamPoint == _pointsForWin)
+            if (_data.score.WinLeftTeam)
             {
-                _gameEndPopUp.SetTeamName("Left");
+                _data.gameEndPopUp.SetTeamName("Left");
                 SetGameOnPause(true);
             }
-            else if (_rightTeamPoints == _pointsForWin)
+            else if (_data.score.WinRightTeam)
             {
-                _gameEndPopUp.SetTeamName("Right");
+                _data.gameEndPopUp.SetTeamName("Right");
                 SetGameOnPause(true);
             }
         }
@@ -105,58 +93,38 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
         private void SetGameOnPause(bool value)
         {
             _gameOnPause = value;
+            _data.timer.GameOnPause = value;
 
             foreach (var team in _playerTeamDictionary)
             {
                 foreach (var player in team.Value)
                 {
-                    player.SetGameOnPause(value);
+                    player.GameOnPause = value;
                 }
             }
         }
 
-        public void AddPlayerToTeamByName(string name, PlayerMovement playerMovement)
+        public void AddPlayerToTeamByName(string name, Player player)
         {
-            _playerTeamDictionary[name].Add(playerMovement);
+            _playerTeamDictionary[name].Add(player);
         }
-
-        private void StartTimer()
+        
+        public Player GetNotBusyPlayerFromTeamByName(string name)
         {
-            _currentSeconds = _startSeconds;
-        }
+            Player player = _playerTeamDictionary[name].FirstOrDefault(x => x.IsBusy == false);
 
-        private void UpdatePointsText()
-        {
-            Vector3 screenCenter = DX2D.Instance.ScreenCenter;
-            RectangleF textRectangle = new RectangleF(screenCenter.X - 200, 0, 400, 100);
-            DX2D.Instance.RenderTarget.DrawText($"{_leftTeamPoint} : {_rightTeamPoints}", DX2D.Instance.TextFormatMessage, textRectangle, DX2D.Instance.WhiteBrush);
-        }
-
-        private void UpdateTimeText()
-        {
-            if (!_gameOnPause)
+            if (player != null)
             {
-                _currentSeconds -= 0.0166666667f;
-                if (_currentSeconds <= 0)
-                {
-                    _currentSeconds = 0;
-                    _gameEndPopUp.ShowPopUpWithTie();
-                }
+                player.IsBusy = true;
+                return player;
             }
 
-            int minutes = (int)_currentSeconds / 60;
-            int seconds = (int)_currentSeconds - minutes * 60;
+            return null;
+        }
 
-            string time = $"{minutes}:{seconds}";
+        private void TimeEnd()
+        {
 
-            if (seconds < 10)
-            {
-                time = $"{minutes}:0{seconds}";
-            }
-
-            Vector3 screenCenter = DX2D.Instance.ScreenCenter;
-            RectangleF textRectangle = new RectangleF(screenCenter.X - 200, 75, 400, 100);
-            DX2D.Instance.RenderTarget.DrawText(time, DX2D.Instance.TextFormatMessageSmall, textRectangle, DX2D.Instance.WhiteBrush);
         }
     }
 }

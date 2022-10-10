@@ -1,4 +1,5 @@
 ﻿using Direct2dLib.App.CustomUnity;
+using Direct2dLib.App.CustomUnity.Scenes;
 using SharpDX.Windows;
 using System;
 using System.Windows.Forms;
@@ -9,39 +10,37 @@ namespace Direct2dLib
     {
         public event Action OnFormClosed;
 
-        private RenderForm renderForm;
-        public RenderForm RenderForm { get => renderForm; }
+        private RenderForm _renderForm;
+        private SceneManager _sceneManager;
 
-        private SceneRoot rendererScene;
 
         public CustomForm()
         {
-            renderForm = new RenderForm("Football");
-            renderForm.WindowState = FormWindowState.Normal;
-            renderForm.FormBorderStyle = FormBorderStyle.None;
-            renderForm.WindowState = FormWindowState.Maximized;
+            _renderForm = new RenderForm("Football");
+            _renderForm.FormBorderStyle = FormBorderStyle.None;
+            _renderForm.WindowState = FormWindowState.Maximized;
 
-            renderForm.FormClosed += FormClosed;
+            _renderForm.FormClosed += FormClosed;
         }
 
         private void FormClosed(object sender, FormClosedEventArgs e)
         {
-            renderForm.FormClosed -= FormClosed;
+            _renderForm.FormClosed -= FormClosed;
             OnFormClosed?.Invoke();
         }
 
         public void Initialize()
         {
-            DX2D dx2d = new DX2D(renderForm);
-            Input dInput = new Input(renderForm);
+            DX2D dx2d = new DX2D(_renderForm);
+            Input dInput = new Input(_renderForm);
             CollisionHandler collisionHandler = new CollisionHandler();
-            rendererScene = new SceneRoot();
-            RenderLoop.Run(renderForm, Update);
+            _sceneManager = new SceneManager();
+            RenderLoop.Run(_renderForm, Update);
         }
 
         public void Update()
         {
-            rendererScene.Update();
+            _sceneManager.ActiveScene.Update();
         }
     }
 }

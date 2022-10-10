@@ -74,20 +74,27 @@
     <Compile Include="App\CustomUnity\Components\MechanicComponents\Gates\RightGate.cs" />
     <Compile Include="App\CustomUnity\Components\MechanicComponents\Map\HorizontalColliders.cs" />
     <Compile Include="App\CustomUnity\Components\MechanicComponents\Map\Match.cs" />
+    <Compile Include="App\CustomUnity\Components\MechanicComponents\Player\Player.cs" />
     <Compile Include="App\CustomUnity\Components\MechanicComponents\Player\PlayerMovement.cs" />
     <Compile Include="App\CustomUnity\Components\DefaultComponents\SpriteRenderer.cs" />
     <Compile Include="App\CustomUnity\Components\MechanicComponents\Map\VerticalColliders.cs" />
     <Compile Include="App\CustomUnity\Components\MechanicComponents\UI\Button.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\UI\GameEndPopUp.cs" />
+    <Compile Include="App\CustomUnity\Components\MechanicComponents\UI\PopUps\GameEndPopUp.cs" />
+    <Compile Include="App\CustomUnity\Components\MechanicComponents\UI\PopUps\MainMenuPopUp.cs" />
+    <Compile Include="App\CustomUnity\Components\MechanicComponents\UI\Score.cs" />
+    <Compile Include="App\CustomUnity\Components\MechanicComponents\UI\Timer.cs" />
     <Compile Include="App\CustomUnity\GameObject.cs" />
     <Compile Include="App\CustomUnity\Components\DefaultComponents\Transform.cs" />
+    <Compile Include="App\CustomUnity\Scenes\Scenes\MainMenuScene.cs" />
+    <Compile Include="App\CustomUnity\Scenes\Scenes\MatchScene.cs" />
+    <Compile Include="App\CustomUnity\Scenes\Scene.cs" />
+    <Compile Include="App\CustomUnity\Scenes\SceneManager.cs" />
     <Compile Include="App\CustomUnity\Settings.cs" />
     <Compile Include="App\CustomUnity\Utils\CollisionUtils.cs" />
     <Compile Include="App\CustomUnity\Utils\MathUtils.cs" />
     <Compile Include="App\Direct2DLib\Input.cs" />
     <Compile Include="App\Direct2DLib\CustomForm.cs" />
     <Compile Include="App\Direct2DLib\DX2D.cs" />
-    <Compile Include="App\CustomUnity\SceneRoot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
