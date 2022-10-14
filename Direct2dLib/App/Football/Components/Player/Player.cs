@@ -12,16 +12,18 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players
     {
         private Vector3 _startPosition;
 
-        public bool IsBusy { get; set; }
         public bool GameOnPause { get; set; }
 
         public Player(GameObject go, int playerIndex) : base(go)
         {
-            IsBusy = false;
-
             if (playerIndex == NetworkController.PlayerIndex)
             {
                 gameObject.AddComponent(new PlayerMovement(gameObject, this));
+
+                if (NetworkController.IsServer)
+                {
+
+                }
             }
         }
 

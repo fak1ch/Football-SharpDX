@@ -21,13 +21,16 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
 
     public class Match : Component
     {
+        private List<Player> _players;
         private Dictionary<string, List<Player>> _playerTeamDictionary;
         private MatchData _data;
 
-        private bool _gameOnPause = true;
+        public List<Player> Players => _players;
 
         public Match(GameObject go, MatchData data) : base(go)
         {
+            _players = new List<Player>();
+
             _playerTeamDictionary = new Dictionary<string, List<Player>>();
             _playerTeamDictionary.Add("Left", new List<Player>());
             _playerTeamDictionary.Add("Right", new List<Player>());
@@ -92,7 +95,6 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
 
         private void SetGameOnPause(bool value)
         {
-            _gameOnPause = value;
             _data.timer.GameOnPause = value;
 
             foreach (var team in _playerTeamDictionary)
@@ -106,21 +108,10 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
 
         public void AddPlayerToTeamByName(string name, Player player)
         {
+            _players.Add(player);
             _playerTeamDictionary[name].Add(player);
         }
-        
-        public Player GetNotBusyPlayerFromTeamByName(string name)
-        {
-            Player player = _playerTeamDictionary[name].FirstOrDefault(x => x.IsBusy == false);
 
-            if (player != null)
-            {
-                player.IsBusy = true;
-                return player;
-            }
-
-            return null;
-        }
 
         private void TimeEnd()
         {

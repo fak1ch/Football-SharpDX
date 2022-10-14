@@ -69,6 +69,7 @@
     <Compile Include="App\CustomUnity\Components\BoxCollider2D.cs" />
     <Compile Include="App\CustomUnity\Components\CircleCollider2D.cs" />
     <Compile Include="App\CustomUnity\Components\Component.cs" />
+    <Compile Include="App\CustomUnity\Utils\Converter.cs" />
     <Compile Include="App\Football\Components\EthernetConnection\Client.cs" />
     <Compile Include="App\Football\Components\EthernetConnection\NetworkController.cs" />
     <Compile Include="App\Football\Components\EthernetConnection\Server.cs" />

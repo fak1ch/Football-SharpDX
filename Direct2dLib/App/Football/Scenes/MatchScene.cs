@@ -4,6 +4,7 @@ using Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI;
 using Direct2dLib.App.CustomUnity.Components.MechanicComponents;
 using Direct2dLib.App.CustomUnity.Components;
 using SharpDX;
+using Direct2dLib.App.Football.Components.EthernetConnection;
 
 namespace Direct2dLib.App.CustomUnity.Scenes
 {
@@ -70,7 +71,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 DX2D.Instance.LoadBitmap("ball.png"),
                 50, 50));
             ball.AddComponent(new CircleCollider2D(ball, 25, true));
-            ball.AddComponent(new Ball(ball, 20, 0.02f, 7));
+            Ball ballComponent = ball.AddComponent(new Ball(ball, 20, 0.02f, 7));
             _gameObjects.Add(ball);
 
             #endregion
@@ -160,6 +161,14 @@ namespace Direct2dLib.App.CustomUnity.Scenes
             matchComponent.AddPlayerToTeamByName("Right", rightPlayer1.GetComponent<Player>());
             matchComponent.AddPlayerToTeamByName("Right", rightPlayer2.GetComponent<Player>());
             _gameObjects.Add(match);
+
+            NetworkController.Server?.SetPlayersList(matchComponent.Players);
+            NetworkController.Server?.SetBall(ballComponent);
+            NetworkController.Server?.WriteAndReadMatch();
+
+            NetworkController.Client?.SetPlayersList(matchComponent.Players);
+            NetworkController.Client?.SetBall(ballComponent);
+            NetworkController.Client?.WriteAndReadMatch();
 
             #endregion
         }
