@@ -17,7 +17,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
             background.AddComponent(new SpriteRenderer(background,
                 DX2D.Instance.LoadBitmap("bg.jpg"),
                 DX2D.Instance.ScreenSize.Right, DX2D.Instance.ScreenSize.Bottom));
-            Instantiate(background);
+            _gameObjects.Add(background);
 
             #endregion
 
@@ -30,9 +30,8 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 DX2D.Instance.LoadBitmap("usa.png"),
                 100, 100));
             leftPlayer1.AddComponent(new CircleCollider2D(leftPlayer1, 40, true));
-            leftPlayer1.AddComponent(new Player(leftPlayer1));
-            leftPlayer1.AddComponent(new PlayerMovement(leftPlayer1));
-            Instantiate(leftPlayer1);
+            leftPlayer1.AddComponent(new Player(leftPlayer1, 0));
+            _gameObjects.Add(leftPlayer1);
 
             Vector3 leftPlayer2Position = new Vector3(200, DX2D.Instance.ScreenCenter.Y, 0);
             GameObject leftPlayer2 = new GameObject(leftPlayer2Position);
@@ -40,8 +39,8 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 DX2D.Instance.LoadBitmap("usa.png"),
                 100, 100));
             leftPlayer2.AddComponent(new CircleCollider2D(leftPlayer2, 40, true));
-            leftPlayer2.AddComponent(new Player(leftPlayer2));
-            Instantiate(leftPlayer2);
+            leftPlayer2.AddComponent(new Player(leftPlayer2, 1));
+            _gameObjects.Add(leftPlayer2);
 
             Vector3 rightPlayer1Position = DX2D.Instance.ScreenCenter;
             rightPlayer1Position.X += 100;
@@ -50,8 +49,8 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 DX2D.Instance.LoadBitmap("belarus.png"),
                 95, 95));
             rightPlayer1.AddComponent(new CircleCollider2D(rightPlayer1, 40, true));
-            rightPlayer1.AddComponent(new Player(rightPlayer1));
-            Instantiate(rightPlayer1);
+            rightPlayer1.AddComponent(new Player(rightPlayer1, 2));
+            _gameObjects.Add(rightPlayer1);
 
             Vector3 rightPlayer2Position = new Vector3(DX2D.Instance.ScreenSize.Right - 200, DX2D.Instance.ScreenCenter.Y, 0);
             GameObject rightPlayer2 = new GameObject(rightPlayer2Position);
@@ -59,8 +58,8 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 DX2D.Instance.LoadBitmap("belarus.png"),
                 95, 95));
             rightPlayer2.AddComponent(new CircleCollider2D(rightPlayer2, 40, true));
-            rightPlayer2.AddComponent(new Player(rightPlayer2));
-            Instantiate(rightPlayer2);
+            rightPlayer2.AddComponent(new Player(rightPlayer2, 3));
+            _gameObjects.Add(rightPlayer2);
 
             #endregion
 
@@ -72,7 +71,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 50, 50));
             ball.AddComponent(new CircleCollider2D(ball, 25, true));
             ball.AddComponent(new Ball(ball, 20, 0.02f, 7));
-            Instantiate(ball);
+            _gameObjects.Add(ball);
 
             #endregion
 
@@ -85,7 +84,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 100, 250));
             rightGate.AddComponent(new BoxCollider2D(rightGate, 10, 225, new Vector2(-25, 0), true));
             rightGate.AddComponent(new RightGate(rightGate));
-            Instantiate(rightGate);
+            _gameObjects.Add(rightGate);
 
             Vector3 leftGatePosition = new Vector3(35, DX2D.Instance.ScreenSize.Bottom / 2, 0);
             GameObject leftGate = new GameObject(leftGatePosition);
@@ -94,7 +93,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 100, 250));
             leftGate.AddComponent(new BoxCollider2D(leftGate, 10, 225, new Vector2(25, 0), true));
             leftGate.AddComponent(new LeftGate(leftGate));
-            Instantiate(leftGate);
+            _gameObjects.Add(leftGate);
 
             #endregion
 
@@ -110,7 +109,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 new Vector2(DX2D.Instance.ScreenSize.Right / 2, 20 + DX2D.Instance.ScreenSize.Bottom / 2)));
             collidersVertical.AddComponent(new BoxCollider2D(collidersVertical, DX2D.Instance.ScreenSize.Right, 10,
                 new Vector2(DX2D.Instance.ScreenSize.Right / 2, 20 + DX2D.Instance.ScreenSize.Bottom / -2)));
-            Instantiate(collidersVertical);
+            _gameObjects.Add(collidersVertical);
 
             GameObject collidersHorizontal = new GameObject(new Vector3(0, DX2D.Instance.ScreenCenter.Y - 20, 0));
             collidersHorizontal.AddComponent(new HorizontalColliders(collidersHorizontal));
@@ -122,7 +121,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 new Vector2(0, 0)));
             collidersHorizontal.AddComponent(new BoxCollider2D(collidersHorizontal, 10, DX2D.Instance.ScreenSize.Right,
                 new Vector2(DX2D.Instance.ScreenSize.Right, 0)));
-            Instantiate(collidersHorizontal);
+            _gameObjects.Add(collidersHorizontal);
 
             #endregion
 
@@ -130,15 +129,15 @@ namespace Direct2dLib.App.CustomUnity.Scenes
 
             GameObject gameEndPopUp = new GameObject();
             gameEndPopUp.AddComponent(new GameEndPopUp(gameEndPopUp));
-            Instantiate(gameEndPopUp);
+            _gameObjects.Add(gameEndPopUp);
 
             GameObject score = new GameObject();
             score.AddComponent(new Score(score));
-            Instantiate(score);
+            _gameObjects.Add(score);
 
             GameObject timer = new GameObject();
             timer.AddComponent(new Timer(timer));
-            Instantiate(timer);
+            _gameObjects.Add(timer);
 
             #endregion
 
@@ -160,7 +159,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
             matchComponent.AddPlayerToTeamByName("Left", leftPlayer2.GetComponent<Player>());
             matchComponent.AddPlayerToTeamByName("Right", rightPlayer1.GetComponent<Player>());
             matchComponent.AddPlayerToTeamByName("Right", rightPlayer2.GetComponent<Player>());
-            Instantiate(match);
+            _gameObjects.Add(match);
 
             #endregion
         }

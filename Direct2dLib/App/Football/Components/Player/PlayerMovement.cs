@@ -12,9 +12,9 @@ namespace Direct2dLib.App.CustomUnity.Components
         private Vector3 _lastFramePosition;
         private Player _player;
 
-        public PlayerMovement(GameObject go) : base(go)
+        public PlayerMovement(GameObject go, Player player) : base(go)
         {
-            _player = gameObject.GetComponent<Player>();
+            _player = player;
         }
 
         public override void Update()

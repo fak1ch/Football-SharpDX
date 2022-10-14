@@ -21,13 +21,13 @@ namespace Football
             _form = new CustomForm();
             _form.Initialize();
             _form.OnFormClosed += CustomFormClosed;
-            WindowState = FormWindowState.Minimized;
+
+            Close();
         }
 
         private void CustomFormClosed()
         {
-            _form.OnFormClosed -= CustomFormClosed;
-            this.Close();
+            Close();
         }
     }
 }

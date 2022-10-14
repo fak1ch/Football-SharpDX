@@ -10,7 +10,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
 
             GameObject mainMenuPopUp = new GameObject();
             mainMenuPopUp.AddComponent(new MainMenuPopUp(mainMenuPopUp));
-            Instantiate(mainMenuPopUp);
+            _gameObjects.Add(mainMenuPopUp);
 
             #endregion
         }
