@@ -17,8 +17,8 @@ namespace Direct2dLib
         public CustomForm()
         {
             _renderForm = new RenderForm("Football");
-            //_renderForm.FormBorderStyle = FormBorderStyle.None;
-            //_renderForm.WindowState = FormWindowState.Maximized;
+            _renderForm.FormBorderStyle = FormBorderStyle.None;
+            _renderForm.WindowState = FormWindowState.Maximized;
             _renderForm.Width = 1360 / 2;
             _renderForm.Height = 768;
 

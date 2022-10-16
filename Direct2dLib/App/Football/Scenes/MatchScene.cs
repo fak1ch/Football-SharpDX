@@ -168,11 +168,9 @@ namespace Direct2dLib.App.CustomUnity.Scenes
 
             NetworkController.Server?.SetPlayersList(matchComponent.Players);
             NetworkController.Server?.SetBall(ballComponent);
-            NetworkController.Server?.WriteAndReadMatch();
 
             NetworkController.Client?.SetPlayersList(matchComponent.Players);
             NetworkController.Client?.SetBall(ballComponent);
-            NetworkController.Client?.WriteAndReadMatch();
 
             #endregion
         }

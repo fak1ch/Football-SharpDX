@@ -1,5 +1,7 @@
-﻿using Direct2dLib.App.Football.Components.EthernetConnection;
+﻿using Direct2dLib.App.CustomUnity.Scenes;
+using Direct2dLib.App.Football.Components.EthernetConnection;
 using SharpDX;
+using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,17 +21,20 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players
             if (playerIndex == NetworkController.PlayerIndex)
             {
                 gameObject.AddComponent(new PlayerMovement(gameObject, this));
-
-                if (NetworkController.IsServer)
-                {
-
-                }
             }
         }
 
         public override void Start()
         {
             _startPosition = transform.position;
+        }
+
+        public override void Update()
+        {
+            if (Input.Instance.GetKey(Key.M))
+            {
+                SceneManager.Instance.LoadScene<MainMenuScene>();
+            }
         }
 
         public void ReturnToStartPosition()

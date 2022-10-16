@@ -64,27 +64,24 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             OnStartGame?.Invoke();
         }
 
-        public async Task WriteAndReadMatch()
+        public void WriteAndReadMatch()
         {
-            while (true)
-            {
-                string message = string.Empty;
-                message += Converter.Vector3ToString(_players[NetworkController.PlayerIndex].transform.position);
-                message += $":{NetworkController.PlayerIndex}";
+            string message = string.Empty;
+            message += Converter.Vector3ToString(_players[NetworkController.PlayerIndex].transform.position);
+            message += $":{NetworkController.PlayerIndex}";
 
-                byte[] bytes = Encoding.UTF8.GetBytes(message);
+            byte[] bytes = Encoding.UTF8.GetBytes(message);
 
-                await _serverStream.WriteAsync(bytes, 0, bytes.Length);
-                await _serverStream.FlushAsync();
+            _serverStream.Write(bytes, 0, bytes.Length);
+            _serverStream.Flush();
 
-                await GetMatchData();
-            }
+            GetMatchData();
         }
 
-        private async Task GetMatchData()
+        private void GetMatchData()
         {
             byte[] bytes = new byte[256];
-            int length = await _serverStream.ReadAsync(bytes, 0, bytes.Length);
+            int length = _serverStream.Read(bytes, 0, bytes.Length);
             string[] message = Encoding.UTF8.GetString(bytes, 0, length).Split(':');
 
             for (int i = 0; i < _players.Count; i++)

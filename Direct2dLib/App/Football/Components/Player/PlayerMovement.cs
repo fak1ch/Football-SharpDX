@@ -1,5 +1,6 @@
 ﻿using Direct2dLib.App.CustomUnity.Components.MechanicComponents;
 using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players;
+using Direct2dLib.App.Football.Components.EthernetConnection;
 using SharpDX;
 using SharpDX.DirectInput;
 using System.ComponentModel;
@@ -46,6 +47,15 @@ namespace Direct2dLib.App.CustomUnity.Components
 
             input.Normalize();
             transform.position += input * _speed;
+
+            if (NetworkController.IsServer)
+            {
+                NetworkController.Server.WriteAndReadMatch();
+            }
+            else
+            {
+                NetworkController.Client.WriteAndReadMatch();
+            }
         }
 
         public override void OnCollision(Component component)

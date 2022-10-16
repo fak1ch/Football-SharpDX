@@ -67,27 +67,24 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             OnStartGame?.Invoke();
         }
 
-        public async Task WriteAndReadMatch()
+        public void WriteAndReadMatch()
         {
-            while (true)
+            foreach (var client in _clients)
             {
-                foreach (var client in _clients)
-                {
-                    byte[] bytes = new byte[256];
-                    int length = await client.GetStream().ReadAsync(bytes, 0, bytes.Length);
-                    string[] message = Encoding.UTF8.GetString(bytes, 0, length).Split(':');
+                byte[] bytes = new byte[256];
+                int length = client.GetStream().Read(bytes, 0, bytes.Length);
+                string[] message = Encoding.UTF8.GetString(bytes, 0, length).Split(':');
 
-                    Vector3 position = Converter.StringToVector3(message[0]);
-                    int playerId = int.Parse(message[1]);
+                Vector3 position = Converter.StringToVector3(message[0]);
+                int playerId = int.Parse(message[1]);
 
-                    _players[playerId].transform.position = position;
-                }
-
-                await SendMatchDataAsync();
+                _players[playerId].transform.position = position;
             }
+
+            SendMatchDataAsync();
         }
 
-        private async Task SendMatchDataAsync() 
+        private void SendMatchDataAsync() 
         {
             string message = string.Empty;
 
@@ -102,8 +99,8 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             foreach (var client in _clients)
             {
                 NetworkStream clientStream = client.GetStream();
-                await clientStream.WriteAsync(bytes, 0, bytes.Length);
-                await clientStream.FlushAsync();
+                clientStream.Write(bytes, 0, bytes.Length);
+                clientStream.Flush();
             }
         }
 
