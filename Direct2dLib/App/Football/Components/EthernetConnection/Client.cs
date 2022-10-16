@@ -64,21 +64,13 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             OnStartGame?.Invoke();
         }
 
-        public void WriteAndReadMatch()
-        {
-            Task task = SendPositionToServer();
-        }
-
-        private async Task SendPositionToServer()
+        public async Task WriteAndReadMatch()
         {
             while (true)
             {
-                if (!_tcpClient.Connected) continue;
-
                 string message = string.Empty;
                 message += Converter.Vector3ToString(_players[NetworkController.PlayerIndex].transform.position);
-                message += ':';
-                message += NetworkController.PlayerIndex;
+                message += $":{NetworkController.PlayerIndex}";
 
                 byte[] bytes = Encoding.UTF8.GetBytes(message);
 
@@ -91,23 +83,18 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         private async Task GetMatchData()
         {
-            while (true)
+            byte[] bytes = new byte[256];
+            int length = await _serverStream.ReadAsync(bytes, 0, bytes.Length);
+            string[] message = Encoding.UTF8.GetString(bytes, 0, length).Split(':');
+
+            for (int i = 0; i < _players.Count; i++)
             {
-                if (!_tcpClient.Connected) continue;
-
-                byte[] bytes = new byte[256];
-                int length = await _serverStream.ReadAsync(bytes, 0, bytes.Length);
-                string[] message = Encoding.UTF8.GetString(bytes, 0, length).Split(':');
-
-                for (int i = 0; i < _players.Count; i++)
-                {
-                    Vector3 playerPosition = Converter.StringToVector3(message[i]);
-                    _players[i].transform.position = playerPosition;
-                }
-
-                Vector3 ballPosition = Converter.StringToVector3(message.Last());
-                _ball.transform.position = ballPosition;
+                Vector3 playerPosition = Converter.StringToVector3(message[i]);
+                _players[i].transform.position = playerPosition;
             }
+
+            Vector3 ballPosition = Converter.StringToVector3(message.Last());
+            _ball.transform.position = ballPosition;
         }
 
         public void SetPlayersList(List<Player> players)

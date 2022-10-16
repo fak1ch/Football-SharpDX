@@ -34,7 +34,9 @@ namespace Direct2dLib.App.CustomUnity.Scenes
             leftPlayer1.AddComponent(new Player(leftPlayer1, 0));
             _gameObjects.Add(leftPlayer1);
 
-            Vector3 leftPlayer2Position = new Vector3(200, DX2D.Instance.ScreenCenter.Y, 0);
+            Vector3 leftPlayer2Position = DX2D.Instance.ScreenCenter;
+            leftPlayer2Position.X -= 100;
+            leftPlayer2Position.Y -= 100;
             GameObject leftPlayer2 = new GameObject(leftPlayer2Position);
             leftPlayer2.AddComponent(new SpriteRenderer(leftPlayer2,
                 DX2D.Instance.LoadBitmap("usa.png"),
@@ -53,7 +55,9 @@ namespace Direct2dLib.App.CustomUnity.Scenes
             rightPlayer1.AddComponent(new Player(rightPlayer1, 2));
             _gameObjects.Add(rightPlayer1);
 
-            Vector3 rightPlayer2Position = new Vector3(DX2D.Instance.ScreenSize.Right - 200, DX2D.Instance.ScreenCenter.Y, 0);
+            Vector3 rightPlayer2Position = DX2D.Instance.ScreenCenter;
+            rightPlayer2Position.X += 100;
+            rightPlayer2Position.Y += 100;
             GameObject rightPlayer2 = new GameObject(rightPlayer2Position);
             rightPlayer2.AddComponent(new SpriteRenderer(rightPlayer2,
                 DX2D.Instance.LoadBitmap("belarus.png"),

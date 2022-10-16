@@ -15,12 +15,12 @@ namespace Direct2dLib.App.CustomUnity.Utils
             float y = vector3.Y;
             float z = vector3.Z;
 
-            return $"{x}.{y}.{z}";
+            return $"{x};{y};{z}";
         }
 
         public static Vector3 StringToVector3(string message)
         {
-            string[] result = message.Split('.');
+            string[] result = message.Split(';');
 
             float x = float.Parse(result[0]);
             float y = float.Parse(result[1]);
