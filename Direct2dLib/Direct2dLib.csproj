@@ -35,6 +35,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
     </Reference>
@@ -71,6 +74,8 @@
     <Compile Include="App\CustomUnity\Components\Component.cs" />
     <Compile Include="App\CustomUnity\Utils\Converter.cs" />
     <Compile Include="App\Football\Components\EthernetConnection\Client.cs" />
+    <Compile Include="App\Football\Components\EthernetConnection\Datas\ClientData.cs" />
+    <Compile Include="App\Football\Components\EthernetConnection\Datas\ServerData.cs" />
     <Compile Include="App\Football\Components\EthernetConnection\NetworkController.cs" />
     <Compile Include="App\Football\Components\EthernetConnection\Server.cs" />
     <Compile Include="App\Football\Components\Map\Ball.cs" />

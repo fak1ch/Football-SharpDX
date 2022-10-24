@@ -1,6 +1,8 @@
 ﻿using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players;
 using Direct2dLib.App.CustomUnity.Utils;
 using Direct2dLib.App.Football.Components.EthernetConnection;
+using Direct2dLib.App.Football.Components.EthernetConnection.Json;
+using Newtonsoft.Json;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.Direct2D1.Effects;
@@ -18,7 +20,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
     {
         private const string ip = "127.0.0.1";
         private const int port = 8080;
-        private const int maxPlayers = 4;
+        private const int maxPlayers = 2;
 
         public event Action OnStartGame;
 
@@ -73,12 +75,11 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             {
                 byte[] bytes = new byte[256];
                 int length = client.GetStream().Read(bytes, 0, bytes.Length);
-                string[] message = Encoding.UTF8.GetString(bytes, 0, length).Split(':');
+                string message = Encoding.UTF8.GetString(bytes, 0, length);
 
-                Vector3 position = Converter.StringToVector3(message[0]);
-                int playerId = int.Parse(message[1]);
+                ClientData clientData = JsonConvert.DeserializeObject<ClientData>(message);
 
-                _players[playerId].transform.position = position;
+                _players[clientData.playerIndex].transform.position = clientData.position;
             }
 
             SendMatchDataAsync();
@@ -86,14 +87,19 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         private void SendMatchDataAsync() 
         {
-            string message = string.Empty;
-
+            List<Vector3> playerPositions = new List<Vector3>();
             foreach (var player in _players)
             {
-                message += Converter.Vector3ToString(player.transform.position) + ':';
+                playerPositions.Add(player.transform.position);
             }
-            message += Converter.Vector3ToString(_ball.transform.position);
 
+            ServerData serverData = new ServerData()
+            {
+                playerPositions = playerPositions,
+                ballPosition = _ball.transform.position,
+            };
+
+            string message = JsonConvert.SerializeObject(serverData);
             byte[] bytes = Encoding.UTF8.GetBytes(message);
 
             foreach (var client in _clients)

@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Direct2dLib.App.Football.Components.EthernetConnection;
 using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players;
-using SharpDX;
-using Direct2dLib.App.CustomUnity.Utils;
-using SharpDX.Direct2D1;
+using Direct2dLib.App.Football.Components.EthernetConnection.Json;
+using Newtonsoft.Json;
 
 namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConnection
 {
@@ -66,10 +63,13 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         public void WriteAndReadMatch()
         {
-            string message = string.Empty;
-            message += Converter.Vector3ToString(_players[NetworkController.PlayerIndex].transform.position);
-            message += $":{NetworkController.PlayerIndex}";
+            ClientData clientData = new ClientData()
+            {
+                position = _players[NetworkController.PlayerIndex].transform.position,
+                playerIndex = NetworkController.PlayerIndex,
+            };
 
+            string message = JsonConvert.SerializeObject(clientData);
             byte[] bytes = Encoding.UTF8.GetBytes(message);
 
             _serverStream.Write(bytes, 0, bytes.Length);
@@ -80,18 +80,18 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         private void GetMatchData()
         {
-            byte[] bytes = new byte[256];
+            byte[] bytes = new byte[512];
             int length = _serverStream.Read(bytes, 0, bytes.Length);
-            string[] message = Encoding.UTF8.GetString(bytes, 0, length).Split(':');
+            string message = Encoding.UTF8.GetString(bytes, 0, length);
+
+            ServerData serverData = JsonConvert.DeserializeObject<ServerData>(message);
 
             for (int i = 0; i < _players.Count; i++)
             {
-                Vector3 playerPosition = Converter.StringToVector3(message[i]);
-                _players[i].transform.position = playerPosition;
+                _players[i].transform.position = serverData.playerPositions[i];
             }
 
-            Vector3 ballPosition = Converter.StringToVector3(message.Last());
-            _ball.transform.position = ballPosition;
+            _ball.transform.position = serverData.ballPosition;
         }
 
         public void SetPlayersList(List<Player> players)
