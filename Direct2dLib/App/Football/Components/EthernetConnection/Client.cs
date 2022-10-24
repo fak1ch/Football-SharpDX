@@ -7,6 +7,7 @@ using Direct2dLib.App.Football.Components.EthernetConnection;
 using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players;
 using Direct2dLib.App.Football.Components.EthernetConnection.Json;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConnection
 {
@@ -17,10 +18,9 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         public event Action OnStartGame;
 
-        private int? _playerIndex = null;
+        private Socket _udpClientScoket;
+        private IPEndPoint _endPoint;
 
-        private TcpClient _tcpClient;
-        private NetworkStream _serverStream;
         private List<Player> _players;
         private Ball _ball;
 
@@ -29,36 +29,12 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         public Client()
         {
-            Task task = InitializeAsync();
-        }
-
-        private async Task InitializeAsync()
-        {
-            _tcpClient = new TcpClient(ip, port);
-            _serverStream = _tcpClient.GetStream();
-
-            while (true)
-            {
-                if (StartGameFlag) break;
-
-                byte[] bytes = new byte[256];
-                int length = await _serverStream.ReadAsync(bytes, 0, bytes.Length);
-                string[] message = Encoding.UTF8.GetString(bytes, 0, length).Split(':');
-
-                CountConnections = int.Parse(message[0]);
-                StartGameFlag = bool.Parse(message[1]);
-
-                if (_playerIndex == null)
-                {
-                    _playerIndex = CountConnections - 1;
-                }
-            }
+            _endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+            _udpClientScoket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
             NetworkController.IsServer = false;
-            NetworkController.PlayerIndex = _playerIndex.Value;
             NetworkController.Client = this;
-
-            OnStartGame?.Invoke();
+            NetworkController.PlayerIndex = 1;
         }
 
         public void WriteAndReadMatch()
@@ -72,8 +48,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             string message = JsonConvert.SerializeObject(clientData);
             byte[] bytes = Encoding.UTF8.GetBytes(message);
 
-            _serverStream.Write(bytes, 0, bytes.Length);
-            _serverStream.Flush();
+            _udpClientScoket.SendTo(bytes, _endPoint);
 
             GetMatchData();
         }
@@ -81,7 +56,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         private void GetMatchData()
         {
             byte[] bytes = new byte[512];
-            int length = _serverStream.Read(bytes, 0, bytes.Length);
+            int length = _udpClientScoket.Receive(bytes);
             string message = Encoding.UTF8.GetString(bytes, 0, length);
 
             ServerData serverData = JsonConvert.DeserializeObject<ServerData>(message);

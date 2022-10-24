@@ -41,19 +41,6 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI
         public override void Update()
         {
             UpdateGameEndPopUp();
-
-            if (_isServer)
-            {
-                if (_server == null) return;
-
-                _countConnections = _server.CountConnections;
-            }
-            else
-            {
-                if (_client == null) return;
-
-                _countConnections = _client.CountConnections;
-            }
         }
 
         private void CreateGame()
@@ -63,7 +50,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI
             _isServer = true;
             _buttonsIsClose = true;
             _server = new Server();
-            _server.OnStartGame += StartGame;
+            StartGame();
         }
 
         private void ConnectToGame()
@@ -73,7 +60,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI
             _isServer = false;
             _buttonsIsClose = true;
             _client = new Client();
-            _client.OnStartGame += StartGame;
+            StartGame();
         }
 
         private void StartGame()

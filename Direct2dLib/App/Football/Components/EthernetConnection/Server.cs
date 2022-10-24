@@ -24,64 +24,34 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         public event Action OnStartGame;
 
-        private List<TcpClient> _clients;
+        private UdpClient _udpServer;
+        private IPEndPoint _endPoint;
+
         private List<Player> _players;
         private Ball _ball;
 
-        public int CountConnections => _clients.Count + 1;
         public bool StartGameFlag { get; set; } = false;
 
         public Server()
         {
-            _clients = new List<TcpClient>();
-            Task task = InitializeAsync();
-        }
-
-        private async Task InitializeAsync()
-        {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-            TcpListener serverSocket = new TcpListener(endPoint);
-            serverSocket.Start();
-
-            while (true)
-            {
-                if (StartGameFlag) break;
-
-                TcpClient clientSocket = await serverSocket.AcceptTcpClientAsync();
-
-                _clients.Add(clientSocket);
-                StartGameFlag = CountConnections == maxPlayers;
-
-                byte[] bytes = Encoding.UTF8.GetBytes($"{CountConnections}:{StartGameFlag}");
-
-                foreach (var client in _clients)
-                {
-                    NetworkStream clientStream = client.GetStream();
-                    await clientStream.WriteAsync(bytes, 0, bytes.Length);
-                    await clientStream.FlushAsync();
-                }
-            }
+            _endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+            _udpServer = new UdpClient(_endPoint);
 
             NetworkController.IsServer = true;
-            NetworkController.PlayerIndex = 0;
             NetworkController.Server = this;
-
-            OnStartGame?.Invoke();
+            NetworkController.PlayerIndex = 0;
         }
 
         public void WriteAndReadMatch()
         {
-            foreach (var client in _clients)
-            {
-                byte[] bytes = new byte[256];
-                int length = client.GetStream().Read(bytes, 0, bytes.Length);
-                string message = Encoding.UTF8.GetString(bytes, 0, length);
+            byte[] bytes = _udpServer.Receive(ref _endPoint);
 
-                ClientData clientData = JsonConvert.DeserializeObject<ClientData>(message);
+            string message = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
 
-                _players[clientData.playerIndex].transform.position = clientData.position;
-            }
+            ClientData clientData = JsonConvert.DeserializeObject<ClientData>(message);
 
+            _players[clientData.playerIndex].transform.position = clientData.position;
+            
             SendMatchDataAsync();
         }
 
@@ -102,12 +72,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             string message = JsonConvert.SerializeObject(serverData);
             byte[] bytes = Encoding.UTF8.GetBytes(message);
 
-            foreach (var client in _clients)
-            {
-                NetworkStream clientStream = client.GetStream();
-                clientStream.Write(bytes, 0, bytes.Length);
-                clientStream.Flush();
-            }
+            _udpServer.Send(bytes, bytes.Length, _endPoint);
         }
 
         public void SetPlayersList(List<Player> players)
