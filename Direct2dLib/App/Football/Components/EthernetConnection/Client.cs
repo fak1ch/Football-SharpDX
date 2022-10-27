@@ -38,7 +38,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         }
 
         public void WriteAndReadMatch()
-        {
+        { 
             ClientData clientData = new ClientData()
             {
                 position = _players[NetworkController.PlayerIndex].transform.position,
