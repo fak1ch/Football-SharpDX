@@ -30,6 +30,8 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         private List<Player> _players;
         private Ball _ball;
 
+        private Thread _newThread;
+
         public bool StartGameFlag { get; set; } = false;
 
         public Server()
@@ -40,19 +42,33 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             NetworkController.IsServer = true;
             NetworkController.Server = this;
             NetworkController.PlayerIndex = 0;
+
+            _newThread = new Thread(() => WriteAndReadMatch());
+        }
+
+        public void StartWriteAndReadMatchInNewThread()
+        {
+            if (_newThread.ThreadState != ThreadState.Running)
+            {
+                _newThread = new Thread(() => WriteAndReadMatch());
+                _newThread.Start();
+            }
         }
 
         public void WriteAndReadMatch()
         {
-            byte[] bytes = _udpServer.Receive(ref _endPoint);
+            while (true)
+            {
+                byte[] bytes = _udpServer.Receive(ref _endPoint);
 
-            string message = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                string message = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
 
-            ClientData clientData = JsonConvert.DeserializeObject<ClientData>(message);
+                ClientData clientData = JsonConvert.DeserializeObject<ClientData>(message);
 
-            _players[clientData.playerIndex].transform.position = clientData.position;
-            
-            SendMatchDataAsync();
+                _players[clientData.playerIndex].transform.position = clientData.position;
+
+                SendMatchDataAsync();
+            }
         }
 
         private void SendMatchDataAsync() 

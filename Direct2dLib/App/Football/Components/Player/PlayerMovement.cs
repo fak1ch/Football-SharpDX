@@ -48,14 +48,8 @@ namespace Direct2dLib.App.CustomUnity.Components
             input.Normalize();
             transform.position += input * _speed;
 
-            if (NetworkController.IsServer)
-            {
-                NetworkController.Server.WriteAndReadMatch();
-            }
-            else
-            {
-                NetworkController.Client.WriteAndReadMatch();
-            }
+            NetworkController.Server?.StartWriteAndReadMatchInNewThread();
+            NetworkController.Client?.StartWriteAndReadMatchInNewThread();
         }
 
         public override void OnCollision(Component component)
