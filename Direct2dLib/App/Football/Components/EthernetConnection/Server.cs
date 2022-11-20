@@ -28,6 +28,8 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         private List<Player> _players;
         private Ball _ball;
 
+        private Thread _newThread;
+
         public int CountConnections => _clients.Count + 1;
         public bool StartGameFlag { get; set; } = false;
 
@@ -66,10 +68,21 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             NetworkController.PlayerIndex = 0;
             NetworkController.Server = this;
 
+            _newThread = new Thread(() => WriteAndReadMatch());
+
             OnStartGame?.Invoke();
         }
 
-        public void WriteAndReadMatch()
+        public void StartWriteAndReadMatchInNewThread()
+        {
+            if (_newThread.ThreadState != ThreadState.Running)
+            {
+                _newThread = new Thread(() => WriteAndReadMatch());
+                _newThread.Start();
+            }
+        }
+
+        private void WriteAndReadMatch()
         {
             foreach (var client in _clients)
             {

@@ -50,11 +50,11 @@ namespace Direct2dLib.App.CustomUnity.Components
 
             if (NetworkController.IsServer)
             {
-                NetworkController.Server.WriteAndReadMatch();
+                NetworkController.Server.StartWriteAndReadMatchInNewThread();
             }
             else
             {
-                NetworkController.Client.WriteAndReadMatch();
+                NetworkController.Client.StartWriteAndReadMatchInNewThread();
             }
         }
 
