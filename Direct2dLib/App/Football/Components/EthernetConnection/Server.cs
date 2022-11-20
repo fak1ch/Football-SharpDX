@@ -1,4 +1,5 @@
 ﻿using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players;
+using Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI;
 using Direct2dLib.App.CustomUnity.Utils;
 using Direct2dLib.App.Football.Components.EthernetConnection;
 using Direct2dLib.App.Football.Components.EthernetConnection.Json;
@@ -20,13 +21,14 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
     {
         private const string ip = "127.0.0.1";
         private const int port = 8080;
-        private const int maxPlayers = 2;
+        private const int maxPlayers = 4;
 
         public event Action OnStartGame;
 
         private List<TcpClient> _clients;
         private List<Player> _players;
         private Ball _ball;
+        private Score _score;
 
         private Thread _newThread;
 
@@ -110,6 +112,8 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             {
                 playerPositions = playerPositions,
                 ballPosition = _ball.transform.position,
+                leftTeamScore = _score.LeftTeamPoint,
+                rightTeamScore = _score.RightTeamPoints,
             };
 
             string message = JsonConvert.SerializeObject(serverData);
@@ -131,6 +135,11 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         public void SetBall(Ball ball)
         {
             _ball = ball;
+        }
+
+        public void SetScore(Score score)
+        {
+            _score = score;
         }
     }
 }

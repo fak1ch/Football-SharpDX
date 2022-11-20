@@ -8,6 +8,7 @@ using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players;
 using Direct2dLib.App.Football.Components.EthernetConnection.Json;
 using Newtonsoft.Json;
 using System.Threading;
+using Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI;
 
 namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConnection
 {
@@ -22,10 +23,11 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         private TcpClient _tcpClient;
         private NetworkStream _serverStream;
+        private Thread _newThread;
+
         private List<Player> _players;
         private Ball _ball;
-
-        private Thread _newThread;
+        private Score _score;
 
         public int CountConnections { get; private set; }
         public bool StartGameFlag { get; set; } = false;
@@ -106,6 +108,9 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             }
 
             _ball.transform.position = serverData.ballPosition;
+
+            _score.LeftTeamPoint = serverData.leftTeamScore;
+            _score.RightTeamPoints = serverData.rightTeamScore;
         }
 
         public void SetPlayersList(List<Player> players)
@@ -116,6 +121,11 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         public void SetBall(Ball ball)
         {
             _ball = ball;
+        }
+
+        public void SetScore(Score score)
+        {
+            _score = score;
         }
     }
 }

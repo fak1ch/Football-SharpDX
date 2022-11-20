@@ -1,6 +1,7 @@
 ﻿using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Gates;
 using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players;
 using Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI;
+using Direct2dLib.App.Football.Components.EthernetConnection;
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
         private MatchData _data;
 
         public List<Player> Players => _players;
+        public string Score => _data.score.ScoreString;
 
         public Match(GameObject go, MatchData data) : base(go)
         {
@@ -68,28 +70,35 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
 
         private void HandleGoal(Type type)
         {
-            bool leftTeamScoreGoal = type == typeof(RightGate);
-
-            if (leftTeamScoreGoal)
+            if (NetworkController.IsServer)
             {
-                _data.score.LeftTeamPoint++;
+                bool leftTeamScoreGoal = type == typeof(RightGate);
+
+                if (leftTeamScoreGoal)
+                {
+                    _data.score.LeftTeamPoint++;
+                }
+                else
+                {
+                    _data.score.RightTeamPoints++;
+                }
+
+                ReturnPlayersAndBallForHisPlaces();
+
+                if (_data.score.WinLeftTeam)
+                {
+                    _data.gameEndPopUp.SetTeamName("Left");
+                    SetGameOnPause(true);
+                }
+                else if (_data.score.WinRightTeam)
+                {
+                    _data.gameEndPopUp.SetTeamName("Right");
+                    SetGameOnPause(true);
+                }
             }
             else
             {
-                _data.score.RightTeamPoints++;
-            }
-
-            ReturnPlayersAndBallForHisPlaces();
-
-            if (_data.score.WinLeftTeam)
-            {
-                _data.gameEndPopUp.SetTeamName("Left");
-                SetGameOnPause(true);
-            }
-            else if (_data.score.WinRightTeam)
-            {
-                _data.gameEndPopUp.SetTeamName("Right");
-                SetGameOnPause(true);
+                ReturnPlayersAndBallForHisPlaces();
             }
         }
 
@@ -111,7 +120,6 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
             _players.Add(player);
             _playerTeamDictionary[name].Add(player);
         }
-
 
         private void TimeEnd()
         {

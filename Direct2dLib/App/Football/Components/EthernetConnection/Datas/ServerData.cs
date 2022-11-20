@@ -11,5 +11,7 @@ namespace Direct2dLib.App.Football.Components.EthernetConnection.Json
     {
         public List<Vector3> playerPositions;
         public Vector3 ballPosition;
+        public int leftTeamScore;
+        public int rightTeamScore;
     }
 }
