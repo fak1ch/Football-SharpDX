@@ -17,9 +17,9 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 {
     public class Server
     {
-        private const string ip = "127.0.0.1";
+        private const string ip = "25.52.118.17";
         private const int port = 8080;
-        private const int maxPlayers = 4;
+        private const int maxPlayers = 2;
 
         public event Action OnStartGame;
 
@@ -76,11 +76,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         public void StartWriteAndReadMatchInNewThread()
         {
-            if (_newThread.ThreadState != ThreadState.Running)
-            {
-                _newThread = new Thread(() => WriteAndReadMatch());
-                _newThread.Start();
-            }
+            WriteAndReadMatch();
         }
 
         private void WriteAndReadMatch()
