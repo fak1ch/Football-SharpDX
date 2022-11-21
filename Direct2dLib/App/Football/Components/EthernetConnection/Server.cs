@@ -1,12 +1,10 @@
 ﻿using Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players;
 using Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI;
-using Direct2dLib.App.CustomUnity.Utils;
+using Direct2dLib.App.Football.Bonuses;
 using Direct2dLib.App.Football.Components.EthernetConnection;
 using Direct2dLib.App.Football.Components.EthernetConnection.Json;
 using Newtonsoft.Json;
 using SharpDX;
-using SharpDX.Direct2D1;
-using SharpDX.Direct2D1.Effects;
 using SharpDX.Text;
 using System;
 using System.Collections.Generic;
@@ -29,6 +27,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         private List<Player> _players;
         private Ball _ball;
         private Score _score;
+        private BonusSpawner _bonusSpawner;
 
         private Thread _newThread;
 
@@ -114,6 +113,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
                 ballPosition = _ball.transform.position,
                 leftTeamScore = _score.LeftTeamPoint,
                 rightTeamScore = _score.RightTeamPoints,
+                bonusDatas = _bonusSpawner.GetBonusDataList(),
             };
 
             string message = JsonConvert.SerializeObject(serverData);
@@ -140,6 +140,11 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         public void SetScore(Score score)
         {
             _score = score;
+        }
+
+        public void SetBonusSpawner(BonusSpawner bonusSpawner)
+        {
+            _bonusSpawner = bonusSpawner;
         }
     }
 }

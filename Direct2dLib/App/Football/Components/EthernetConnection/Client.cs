@@ -9,6 +9,7 @@ using Direct2dLib.App.Football.Components.EthernetConnection.Json;
 using Newtonsoft.Json;
 using System.Threading;
 using Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI;
+using Direct2dLib.App.Football.Bonuses;
 
 namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConnection
 {
@@ -28,6 +29,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         private List<Player> _players;
         private Ball _ball;
         private Score _score;
+        private BonusSpawner _bonusSpawner;
 
         public int CountConnections { get; private set; }
         public bool StartGameFlag { get; set; } = false;
@@ -96,7 +98,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         private void GetMatchData()
         {
-            byte[] bytes = new byte[512];
+            byte[] bytes = new byte[2048];
             int length = _serverStream.Read(bytes, 0, bytes.Length);
             string message = Encoding.UTF8.GetString(bytes, 0, length);
 
@@ -111,6 +113,8 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
             _score.LeftTeamPoint = serverData.leftTeamScore;
             _score.RightTeamPoints = serverData.rightTeamScore;
+
+            _bonusSpawner.SetBonusData(serverData.bonusDatas);
         }
 
         public void SetPlayersList(List<Player> players)
@@ -126,6 +130,11 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         public void SetScore(Score score)
         {
             _score = score;
+        }
+
+        public void SetBonusSpawner(BonusSpawner bonusSpawner)
+        {
+            _bonusSpawner = bonusSpawner;
         }
     }
 }

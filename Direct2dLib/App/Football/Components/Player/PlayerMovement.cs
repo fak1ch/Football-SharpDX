@@ -9,13 +9,19 @@ namespace Direct2dLib.App.CustomUnity.Components
 {
     public class PlayerMovement : Component
     {
-        private float _speed = 3;
+        private float _startSpeed = 3;
         private Vector3 _lastFramePosition;
         private Player _player;
+
+        private bool _isSpeedBonusWork;
+        private float _timeSpeedBonusDurationTemp;
+
+        private float _speedTemp;
 
         public PlayerMovement(GameObject go, Player player) : base(go)
         {
             _player = player;
+            _speedTemp = _startSpeed;
         }
 
         public override void Update()
@@ -27,26 +33,26 @@ namespace Direct2dLib.App.CustomUnity.Components
 
             if (Input.Instance.GetKey(Key.A))
             {
-                input.X = -_speed;
+                input.X = -_speedTemp;
             }
 
             if (Input.Instance.GetKey(Key.D))
             {
-                input.X = +_speed;
+                input.X = +_speedTemp;
             }
 
             if (Input.Instance.GetKey(Key.W))
             {
-                input.Y = -_speed;
+                input.Y = -_speedTemp;
             }
 
             if (Input.Instance.GetKey(Key.S))
             {
-                input.Y = +_speed;
+                input.Y = +_speedTemp;
             }
 
             input.Normalize();
-            transform.position += input * _speed;
+            transform.position += input * _speedTemp;
 
             if (NetworkController.IsServer)
             {
@@ -55,6 +61,16 @@ namespace Direct2dLib.App.CustomUnity.Components
             else
             {
                 NetworkController.Client.StartWriteAndReadMatchInNewThread();
+            }
+
+            if (_isSpeedBonusWork)
+            {
+                _timeSpeedBonusDurationTemp -= 0.0166666667f;
+                if (_timeSpeedBonusDurationTemp <= 0)
+                {
+                    _isSpeedBonusWork = false;
+                    _speedTemp = _startSpeed;
+                }
             }
         }
 
@@ -74,6 +90,15 @@ namespace Direct2dLib.App.CustomUnity.Components
             {
                 transform.position = _lastFramePosition;
             }
+        }
+
+        public void SetSpeedTemp(float addSpeedValue, float bonusDuration)
+        {
+            if (_isSpeedBonusWork) return;
+
+            _isSpeedBonusWork = true;
+            _timeSpeedBonusDurationTemp = bonusDuration;
+            _speedTemp += addSpeedValue;
         }
     }
 }

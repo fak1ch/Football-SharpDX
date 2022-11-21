@@ -15,12 +15,13 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players
         private Vector3 _startPosition;
 
         public bool GameOnPause { get; set; }
+        public PlayerMovement PlayerMovement { get; set; }
 
         public Player(GameObject go, int playerIndex) : base(go)
         {
             if (playerIndex == NetworkController.PlayerIndex)
             {
-                gameObject.AddComponent(new PlayerMovement(gameObject, this));
+                PlayerMovement = gameObject.AddComponent(new PlayerMovement(gameObject, this));
             }
         }
 

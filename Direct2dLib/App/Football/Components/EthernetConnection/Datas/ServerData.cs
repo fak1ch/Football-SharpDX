@@ -1,4 +1,5 @@
-﻿using SharpDX;
+﻿using Direct2dLib.App.Football.Bonuses;
+using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace Direct2dLib.App.Football.Components.EthernetConnection.Json
         public Vector3 ballPosition;
         public int leftTeamScore;
         public int rightTeamScore;
+        public List<BonusData> bonusDatas;
     }
 }

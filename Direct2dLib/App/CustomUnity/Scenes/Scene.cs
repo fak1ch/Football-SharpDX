@@ -17,9 +17,9 @@ namespace Direct2dLib.App.CustomUnity.Scenes
 
         public void Start()
         {
-            foreach (var gameObject in _gameObjects)
+            for (int i = 0; i < _gameObjects.Count; i++)
             {
-                gameObject.Start();
+                _gameObjects[i].Start();
             }
         }
 

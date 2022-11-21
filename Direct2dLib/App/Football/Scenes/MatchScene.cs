@@ -5,6 +5,7 @@ using Direct2dLib.App.CustomUnity.Components.MechanicComponents;
 using Direct2dLib.App.CustomUnity.Components;
 using SharpDX;
 using Direct2dLib.App.Football.Components.EthernetConnection;
+using Direct2dLib.App.Football.Bonuses;
 
 namespace Direct2dLib.App.CustomUnity.Scenes
 {
@@ -35,8 +36,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
             _gameObjects.Add(leftPlayer1);
 
             Vector3 leftPlayer2Position = DX2D.Instance.ScreenCenter;
-            leftPlayer2Position.X -= 100;
-            leftPlayer2Position.Y -= 100;
+            leftPlayer2Position.X = 200;
             GameObject leftPlayer2 = new GameObject(leftPlayer2Position);
             leftPlayer2.AddComponent(new SpriteRenderer(leftPlayer2,
                 DX2D.Instance.LoadBitmap("usa.png"),
@@ -56,8 +56,8 @@ namespace Direct2dLib.App.CustomUnity.Scenes
             _gameObjects.Add(rightPlayer1);
 
             Vector3 rightPlayer2Position = DX2D.Instance.ScreenCenter;
-            rightPlayer2Position.X += 100;
-            rightPlayer2Position.Y += 100;
+            rightPlayer2Position.X *= 2;
+            rightPlayer2Position.X -= 200;
             GameObject rightPlayer2 = new GameObject(rightPlayer2Position);
             rightPlayer2.AddComponent(new SpriteRenderer(rightPlayer2,
                 DX2D.Instance.LoadBitmap("belarus.png"),
@@ -75,7 +75,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 DX2D.Instance.LoadBitmap("ball.png"),
                 50, 50));
             ball.AddComponent(new CircleCollider2D(ball, 25, true));
-            Ball ballComponent = ball.AddComponent(new Ball(ball, 20, 0.02f, 7));
+            Ball ballComponent = ball.AddComponent(new Ball(ball));
             _gameObjects.Add(ball);
 
             #endregion
@@ -146,6 +146,13 @@ namespace Direct2dLib.App.CustomUnity.Scenes
 
             #endregion
 
+            #region BonusSpawner
+            GameObject bonusSpawnerGameObject = new GameObject();
+            BonusSpawner bonusSpawnerComponent = bonusSpawnerGameObject
+                .AddComponent(new BonusSpawner(bonusSpawnerGameObject, ballComponent));
+            _gameObjects.Add(bonusSpawnerGameObject);
+            #endregion
+
             #region Match
 
             MatchData matchData = new MatchData
@@ -169,10 +176,12 @@ namespace Direct2dLib.App.CustomUnity.Scenes
             NetworkController.Server?.SetPlayersList(matchComponent.Players);
             NetworkController.Server?.SetBall(ballComponent);
             NetworkController.Server?.SetScore(score.GetComponent<Score>());
+            NetworkController.Server?.SetBonusSpawner(bonusSpawnerComponent);
 
             NetworkController.Client?.SetPlayersList(matchComponent.Players);
             NetworkController.Client?.SetBall(ballComponent);
             NetworkController.Client?.SetScore(score.GetComponent<Score>());
+            NetworkController.Client?.SetBonusSpawner(bonusSpawnerComponent);
 
             #endregion
         }
