@@ -22,6 +22,8 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
 
     public class Match : Component
     {
+        public event Action OnGoal;
+
         private List<Player> _players;
         private Dictionary<string, List<Player>> _playerTeamDictionary;
         private MatchData _data;
@@ -70,6 +72,8 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
 
         private void HandleGoal(Type type)
         {
+            OnGoal?.Invoke();
+
             if (NetworkController.IsServer)
             {
                 bool leftTeamScoreGoal = type == typeof(RightGate);

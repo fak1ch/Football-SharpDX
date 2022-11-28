@@ -15,5 +15,7 @@ namespace Direct2dLib.App.Football.Components.EthernetConnection.Json
         public int leftTeamScore;
         public int rightTeamScore;
         public List<BonusData> bonusDatas;
+
+        public bool ReturnToStartPosition;
     }
 }

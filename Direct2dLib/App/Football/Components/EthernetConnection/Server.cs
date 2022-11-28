@@ -17,7 +17,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 {
     public class Server
     {
-        private const string ip = "26.177.67.202";
+        private const string ip = "25.52.21.43";
         private const int port = 8080;
         private const int maxPlayers = 4;
 
@@ -28,8 +28,11 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         private Ball _ball;
         private Score _score;
         private BonusSpawner _bonusSpawner;
+        private Match _match;
 
         private Thread _newThread;
+
+        private bool _returnToStartPosition = false;
 
         public int CountConnections => _clients.Count + 1;
         public bool StartGameFlag { get; set; } = false;
@@ -107,6 +110,13 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
                 playerPositions.Add(player.transform.position);
             }
 
+            bool returnToStartPosition = _returnToStartPosition;
+
+            if (_returnToStartPosition)
+            {
+                _returnToStartPosition = false;
+            }
+
             ServerData serverData = new ServerData()
             {
                 playerPositions = playerPositions,
@@ -114,6 +124,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
                 leftTeamScore = _score.LeftTeamPoint,
                 rightTeamScore = _score.RightTeamPoints,
                 bonusDatas = _bonusSpawner.GetBonusDataList(),
+                ReturnToStartPosition = returnToStartPosition,
             };
 
             string message = JsonConvert.SerializeObject(serverData);
@@ -145,6 +156,13 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         public void SetBonusSpawner(BonusSpawner bonusSpawner)
         {
             _bonusSpawner = bonusSpawner;
+        }
+
+        public void SetMatch(Match match)
+        {
+            _match = match;
+
+            _match.OnGoal += () => _returnToStartPosition = true;
         }
     }
 }

@@ -177,11 +177,13 @@ namespace Direct2dLib.App.CustomUnity.Scenes
             NetworkController.Server?.SetBall(ballComponent);
             NetworkController.Server?.SetScore(score.GetComponent<Score>());
             NetworkController.Server?.SetBonusSpawner(bonusSpawnerComponent);
+            NetworkController.Server?.SetMatch(match.GetComponent<Match>());
 
             NetworkController.Client?.SetPlayersList(matchComponent.Players);
             NetworkController.Client?.SetBall(ballComponent);
             NetworkController.Client?.SetScore(score.GetComponent<Score>());
             NetworkController.Client?.SetBonusSpawner(bonusSpawnerComponent);
+            NetworkController.Client?.SetMatch(match.GetComponent<Match>());
 
             #endregion
         }

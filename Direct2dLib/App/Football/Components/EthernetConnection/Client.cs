@@ -15,7 +15,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 {
     public class Client
     {
-        private const string ip = "26.177.67.202";
+        private const string ip = "25.52.21.43";
         private const int port = 8080;
 
         public event Action OnStartGame;
@@ -30,6 +30,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         private Ball _ball;
         private Score _score;
         private BonusSpawner _bonusSpawner;
+        private Match _match;
 
         public int CountConnections { get; private set; }
         public bool StartGameFlag { get; set; } = false;
@@ -115,6 +116,11 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             _score.RightTeamPoints = serverData.rightTeamScore;
 
             _bonusSpawner.SetBonusData(serverData.bonusDatas);
+
+            if (serverData.ReturnToStartPosition)
+            {
+                _players[_playerIndex.Value].ReturnToStartPosition();
+            }
         }
 
         public void SetPlayersList(List<Player> players)
@@ -135,6 +141,11 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         public void SetBonusSpawner(BonusSpawner bonusSpawner)
         {
             _bonusSpawner = bonusSpawner;
+        }
+
+        public void SetMatch(Match match)
+        {
+            _match = match;
         }
     }
 }

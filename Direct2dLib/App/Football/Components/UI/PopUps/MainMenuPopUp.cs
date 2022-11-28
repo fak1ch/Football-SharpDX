@@ -1,7 +1,6 @@
 ﻿using Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConnection;
 using Direct2dLib.App.CustomUnity.Scenes;
 using SharpDX;
-using System;
 
 namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI
 {
@@ -11,6 +10,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI
         private RectangleF _rectangleBackground;
         private RectangleF _createGameRectangle;
         private RectangleF _connectToGameRectangle;
+        private RectangleF _inputFieldRectangle;
 
         private Button _createGameButton;
         private Button _connectToGameButton;
