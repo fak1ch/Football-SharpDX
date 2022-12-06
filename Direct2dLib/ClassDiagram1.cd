@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Direct2dLib.App.CustomUnity.CollisionHandler" Collapsed="true">
+    <Position X="42" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQgQABACAAAAAAACAQAAAAAAAAAA=</HashCode>
+      <FileName>App\CustomUnity\CollisionHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Component" Collapsed="true">
+    <Position X="22.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACACAAAAAAAAAAAAAAAAAEAAAAIgAAAAAAAAA=</HashCode>
+      <FileName>App\CustomUnity\Components\Component.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Transform" Collapsed="true">
+    <Position X="21.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAACAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\CustomUnity\Components\Transform.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Settings" Collapsed="true">
+    <Position X="53.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\CustomUnity\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.BoxCollider2D" Collapsed="true">
+    <Position X="25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACgACAAAAAIAAAAAAAABAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>App\CustomUnity\Components\BoxCollider2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.CircleCollider2D" Collapsed="true">
+    <Position X="19.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACAAAAAAEAABAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\CustomUnity\Components\CircleCollider2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.Circle2D" Collapsed="true">
+    <Position X="52" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABhAAAAAAA=</HashCode>
+      <FileName>App\CustomUnity\Components\CircleCollider2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.SpriteRenderer" Collapsed="true">
+    <Position X="23.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAQCAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\CustomUnity\Components\SpriteRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.PlayerMovement" Collapsed="true">
+    <Position X="18.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAYAAAAAACAABAAAAAAACAAAAAAAAAAAIAAAAAAAUAA=</HashCode>
+      <FileName>App\Football\Components\Player\PlayerMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.GameObject" Collapsed="true">
+    <Position X="57.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAIIAAAAIAABAAAAAAEAAAEIgAAAIAAEAA=</HashCode>
+      <FileName>App\CustomUnity\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Scenes.Scene" Collapsed="true">
+    <Position X="22.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAQAAAAQAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\CustomUnity\Scenes\Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Scenes.SceneManager" Collapsed="true">
+    <Position X="57.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAEAAAAAAAAAAAAAAAACAAAAEAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App\CustomUnity\Scenes\SceneManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Scenes.MainMenuScene" Collapsed="true">
+    <Position X="21" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\Football\Scenes\MainMenuScene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Scenes.MatchScene" Collapsed="true">
+    <Position X="23.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\Football\Scenes\MatchScene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Utils.CollisionUtils" Collapsed="true">
+    <Position X="50.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>App\CustomUnity\Utils\CollisionUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Utils.Converter" Collapsed="true">
+    <Position X="52" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>App\CustomUnity\Utils\Converter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Utils.MathUtils" Collapsed="true">
+    <Position X="53.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\CustomUnity\Utils\MathUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.CustomForm" Collapsed="true">
+    <Position X="43.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAACACAAAAAQAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\Direct2DLib\CustomForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.DX2D" Collapsed="true">
+    <Position X="45.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEMIAACGAACgogAAIBIggASQIAIAgwAASIABAgjECAI=</HashCode>
+      <FileName>App\Direct2DLib\DX2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.Input" Collapsed="true">
+    <Position X="43.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAIIIAQACAAEIAABACEQAAgAAAAEAQAAgAAIAEAE=</HashCode>
+      <FileName>App\Direct2DLib\Input.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.Football.Bonuses.Bonus" Collapsed="true">
+    <Position X="22.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>App\Football\Bonuses\Bonus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.Football.Bonuses.BonusMaxSpeed" Collapsed="true">
+    <Position X="20" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAEACAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>App\Football\Bonuses\BonusMaxSpeed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.Football.Bonuses.BonusPlayerSpeed" Collapsed="true">
+    <Position X="22.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>App\Football\Bonuses\BonusPlayerSpeed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.Football.Bonuses.BonusSpawner" Collapsed="true">
+    <Position X="18.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BARAIAAAACAAgAAAAAEABAAACgEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\Football\Bonuses\BonusSpawner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.Football.Bonuses.BonusData" Collapsed="true">
+    <Position X="50.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIBAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\Football\Bonuses\BonusSpawner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.Football.Bonuses.BonusSpeedForPunch" Collapsed="true">
+    <Position X="24.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAEACAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\Football\Bonuses\BonusSpeedForPunch.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConnection.Client" Collapsed="true">
+    <Position X="53.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ECASCAQAAAgAAoBACAAIAABACBAAAAgRgAwgAAAAACA=</HashCode>
+      <FileName>App\Football\Components\EthernetConnection\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConnection.Server" Collapsed="true">
+    <Position X="50.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAATCAQAAAgAAoAACAAABABACBAAAIgRgAgoAAAAACA=</HashCode>
+      <FileName>App\Football\Components\EthernetConnection\Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.Football.Components.EthernetConnection.Json.ClientData" Collapsed="true">
+    <Position X="55.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>App\Football\Components\EthernetConnection\Datas\ClientData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.Football.Components.EthernetConnection.Json.ServerData" Collapsed="true">
+    <Position X="52" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAQAIAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>App\Football\Components\EthernetConnection\Datas\ServerData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.Football.Components.EthernetConnection.NetworkController" Collapsed="true">
+    <Position X="55.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAgAAAAQ=</HashCode>
+      <FileName>App\Football\Components\EthernetConnection\NetworkController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.Gates.LeftGate" Collapsed="true">
+    <Position X="26.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>App\Football\Components\Gates\LeftGate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.Gates.RightGate" Collapsed="true">
+    <Position X="26.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>App\Football\Components\Gates\RightGate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.Ball" Collapsed="true">
+    <Position X="26.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQQQAAAoAAAACAIggAAAAAAgBAABAKAgACAAAwAA=</HashCode>
+      <FileName>App\Football\Components\Map\Ball.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.HorizontalColliders" Collapsed="true">
+    <Position X="26.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\Football\Components\Map\HorizontalColliders.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.MatchData" Collapsed="true">
+    <Position X="52" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAAAAAAAAAAAIAAAAAAAAAAACAAAABAAgAAA=</HashCode>
+      <FileName>App\Football\Components\Map\Match.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.Match" Collapsed="true">
+    <Position X="26.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEIAECBAIAAAgAAAAAQAACABggAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\Football\Components\Map\Match.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.VerticalColliders" Collapsed="true">
+    <Position X="18.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App\Football\Components\Map\VerticalColliders.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.Players.Player" Collapsed="true">
+    <Position X="26.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAACAAAAAAAAAAAAAAAAAAgABAAAAAAAAAEAA=</HashCode>
+      <FileName>App\Football\Components\Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI.Button" Collapsed="true">
+    <Position X="18.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>App\Football\Components\UI\Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI.GameEndPopUp" Collapsed="true">
+    <Position X="18.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAAAgAEQAAAAAAQAAQAAAABCgAAAEAMAAAggA=</HashCode>
+      <FileName>App\Football\Components\UI\PopUps\GameEndPopUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI.MainMenuPopUp" Collapsed="true">
+    <Position X="18.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iQQBAAEAAAAAAFABQAACAAAoEAAgACAAAAAAAAEAAAA=</HashCode>
+      <FileName>App\Football\Components\UI\PopUps\MainMenuPopUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI.Score" Collapsed="true">
+    <Position X="26.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAgAgAAAAAAAAAAAAAAAAAAAUQAAAAAAAAAAAAg=</HashCode>
+      <FileName>App\Football\Components\UI\Score.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI.Timer" Collapsed="true">
+    <Position X="18.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAQIAAAAAAAAABAAAAAAAAgAAAAAAAAAFAAAA=</HashCode>
+      <FileName>App\Football\Components\UI\Timer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
