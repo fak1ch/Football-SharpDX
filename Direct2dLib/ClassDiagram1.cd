@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Direct2dLib.App.CustomUnity.CollisionHandler" Collapsed="true">
-    <Position X="42" Y="1.5" Width="1.5" />
+    <Position X="39.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAQgQABACAAAAAAACAQAAAAAAAAAA=</HashCode>
       <FileName>App\CustomUnity\CollisionHandler.cs</FileName>
@@ -22,7 +22,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.CustomUnity.Settings" Collapsed="true">
-    <Position X="53.75" Y="3.5" Width="1.5" />
+    <Position X="36" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App\CustomUnity\Settings.cs</FileName>
@@ -43,7 +43,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.CustomUnity.Components.Circle2D" Collapsed="true">
-    <Position X="52" Y="0.5" Width="1.5" />
+    <Position X="34.25" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABhAAAAAAA=</HashCode>
       <FileName>App\CustomUnity\Components\CircleCollider2D.cs</FileName>
@@ -64,7 +64,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.GameObject" Collapsed="true">
-    <Position X="57.25" Y="1.5" Width="1.5" />
+    <Position X="39.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAACAIIAAAAIAABAAAAAAEAAAEIgAAAIAAEAA=</HashCode>
       <FileName>App\CustomUnity\GameObject.cs</FileName>
@@ -78,7 +78,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.CustomUnity.Scenes.SceneManager" Collapsed="true">
-    <Position X="57.25" Y="2.5" Width="1.5" />
+    <Position X="39.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAEAAAAAAAAAAAAAAAACAAAAEAAAAAAQAAAAAAAAAA=</HashCode>
       <FileName>App\CustomUnity\Scenes\SceneManager.cs</FileName>
@@ -99,42 +99,42 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.CustomUnity.Utils.CollisionUtils" Collapsed="true">
-    <Position X="50.25" Y="1.5" Width="1.5" />
+    <Position X="32.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAAAQAAAAAA=</HashCode>
       <FileName>App\CustomUnity\Utils\CollisionUtils.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.CustomUnity.Utils.Converter" Collapsed="true">
-    <Position X="52" Y="1.5" Width="1.5" />
+    <Position X="34.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>App\CustomUnity\Utils\Converter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.CustomUnity.Utils.MathUtils" Collapsed="true">
-    <Position X="53.75" Y="2.5" Width="1.5" />
+    <Position X="36" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App\CustomUnity\Utils\MathUtils.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.CustomForm" Collapsed="true">
-    <Position X="43.75" Y="2.5" Width="1.5" />
+    <Position X="35.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAQAACACAAAAAQAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App\Direct2DLib\CustomForm.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.DX2D" Collapsed="true">
-    <Position X="45.5" Y="1.5" Width="1.5" />
+    <Position X="37.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEMIAACGAACgogAAIBIggASQIAIAgwAASIABAgjECAI=</HashCode>
       <FileName>App\Direct2DLib\DX2D.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.Input" Collapsed="true">
-    <Position X="43.75" Y="1.5" Width="1.5" />
+    <Position X="35.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAIIIAQACAAEIAABACEQAAgAAAAEAQAAgAAIAEAE=</HashCode>
       <FileName>App\Direct2DLib\Input.cs</FileName>
@@ -169,7 +169,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.Football.Bonuses.BonusData" Collapsed="true">
-    <Position X="50.25" Y="0.5" Width="1.5" />
+    <Position X="32.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIBAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App\Football\Bonuses\BonusSpawner.cs</FileName>
@@ -183,35 +183,35 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConnection.Client" Collapsed="true">
-    <Position X="53.75" Y="0.5" Width="1.5" />
+    <Position X="36" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ECASCAQAAAgAAoBACAAIAABACBAAAAgRgAwgAAAAACA=</HashCode>
       <FileName>App\Football\Components\EthernetConnection\Client.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConnection.Server" Collapsed="true">
-    <Position X="50.25" Y="3.5" Width="1.5" />
+    <Position X="32.5" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAATCAQAAAgAAoAACAAABABACBAAAIgRgAgoAAAAACA=</HashCode>
       <FileName>App\Football\Components\EthernetConnection\Server.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.Football.Components.EthernetConnection.Json.ClientData" Collapsed="true">
-    <Position X="55.5" Y="0.5" Width="1.5" />
+    <Position X="37.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>App\Football\Components\EthernetConnection\Datas\ClientData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.Football.Components.EthernetConnection.Json.ServerData" Collapsed="true">
-    <Position X="52" Y="3.5" Width="1.5" />
+    <Position X="34.25" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAUAQAIAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
       <FileName>App\Football\Components\EthernetConnection\Datas\ServerData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.Football.Components.EthernetConnection.NetworkController" Collapsed="true">
-    <Position X="55.5" Y="2.5" Width="1.5" />
+    <Position X="37.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAgAAAAQ=</HashCode>
       <FileName>App\Football\Components\EthernetConnection\NetworkController.cs</FileName>
@@ -246,7 +246,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Direct2dLib.App.CustomUnity.Components.MechanicComponents.MatchData" Collapsed="true">
-    <Position X="52" Y="2.5" Width="1.5" />
+    <Position X="34.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAgAAAAAAAAAAAAAAIAAAAAAAAAAACAAAABAAgAAA=</HashCode>
       <FileName>App\Football\Components\Map\Match.cs</FileName>
