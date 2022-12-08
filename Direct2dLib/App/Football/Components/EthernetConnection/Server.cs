@@ -30,8 +30,6 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         private BonusSpawner _bonusSpawner;
         private Match _match;
 
-        private Thread _newThread;
-
         private bool _returnToStartPosition = false;
 
         public int CountConnections => _clients.Count + 1;
@@ -72,21 +70,15 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             NetworkController.PlayerIndex = 0;
             NetworkController.Server = this;
 
-            _newThread = new Thread(() => WriteAndReadMatch());
-
             OnStartGame?.Invoke();
         }
 
         public void StartWriteAndReadMatchInNewThread()
         {
-            if (_newThread.ThreadState != ThreadState.Running)
-            {
-                _newThread = new Thread(() => WriteAndReadMatch());
-                _newThread.Start();
-            }
+            ThreadPool.QueueUserWorkItem(WriteAndReadMatch);
         }
 
-        private void WriteAndReadMatch()
+        private void WriteAndReadMatch(Object stateInfo)
         {
             foreach (var client in _clients)
             {

@@ -24,7 +24,6 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         private TcpClient _tcpClient;
         private NetworkStream _serverStream;
-        private Thread _newThread;
 
         private List<Player> _players;
         private Ball _ball;
@@ -66,21 +65,15 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             NetworkController.PlayerIndex = _playerIndex.Value;
             NetworkController.Client = this;
 
-            _newThread = new Thread(() => WriteAndReadMatch());
-
             OnStartGame?.Invoke();
         }
 
         public void StartWriteAndReadMatchInNewThread()
         {
-            if (_newThread.ThreadState != ThreadState.Running)
-            {
-                _newThread = new Thread(() => WriteAndReadMatch());
-                _newThread.Start();
-            }
+            ThreadPool.QueueUserWorkItem(WriteAndReadMatch);
         }
 
-        private void WriteAndReadMatch()
+        private void WriteAndReadMatch(Object stateInfo)
         {
             ClientData clientData = new ClientData()
             {
