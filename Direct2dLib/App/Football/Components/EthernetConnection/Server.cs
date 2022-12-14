@@ -19,13 +19,14 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
     {
         private const string ip = "192.168.43.161";
         private const int port = 8080;
-        private const int maxPlayers = 2;
+        private const int maxPlayers = 3;
 
         public event Action OnStartGame;
 
         private List<TcpClient> _clients;
         private List<Player> _players;
         private Thread _newThread;
+        private Thread _newThread1;
         private Ball _ball;
         private Score _score;
         private BonusSpawner _bonusSpawner;
@@ -71,7 +72,8 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             NetworkController.PlayerIndex = 0;
             NetworkController.Server = this;
 
-            _newThread = new Thread(() => WriteAndReadMatch());
+            _newThread = new Thread(() => WriteAndReadMatch(_clients[0]));
+            _newThread1 = new Thread(() => WriteAndReadMatch(_clients[1]));
 
             OnStartGame?.Invoke();
         }
@@ -80,28 +82,31 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
         {
             if (_newThread.ThreadState != ThreadState.Running)
             {
-                _newThread = new Thread(() => WriteAndReadMatch());
+                _newThread = new Thread(() => WriteAndReadMatch(_clients[0]));
                 _newThread.Start();
             }
-        }
 
-        private void WriteAndReadMatch()
-        {
-            foreach (var client in _clients)
+            if (_newThread1.ThreadState != ThreadState.Running)
             {
-                byte[] bytes = new byte[256];
-                int length = client.GetStream().Read(bytes, 0, bytes.Length);
-                string message = Encoding.UTF8.GetString(bytes, 0, length);
-
-                ClientData clientData = JsonConvert.DeserializeObject<ClientData>(message);
-
-                _players[clientData.playerIndex].transform.position = clientData.position;
+                _newThread1 = new Thread(() => WriteAndReadMatch(_clients[1]));
+                _newThread1.Start();
             }
-
-            SendMatchDataAsync();
         }
 
-        private void SendMatchDataAsync() 
+        private void WriteAndReadMatch(TcpClient client)
+        {
+            byte[] bytes = new byte[256];
+            int length = client.GetStream().Read(bytes, 0, bytes.Length);
+            string message = Encoding.UTF8.GetString(bytes, 0, length);
+
+            ClientData clientData = JsonConvert.DeserializeObject<ClientData>(message);
+
+            _players[clientData.playerIndex].transform.position = clientData.position;
+
+            SendMatchDataAsync(client);
+        }
+
+        private void SendMatchDataAsync(TcpClient client) 
         {
             List<Vector3> playerPositions = new List<Vector3>();
             foreach (var player in _players)
@@ -129,12 +134,9 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             string message = JsonConvert.SerializeObject(serverData);
             byte[] bytes = Encoding.UTF8.GetBytes(message);
 
-            foreach (var client in _clients)
-            {
-                NetworkStream clientStream = client.GetStream();
-                clientStream.Write(bytes, 0, bytes.Length);
-                clientStream.Flush();
-            }
+            NetworkStream clientStream = client.GetStream();
+            clientStream.Write(bytes, 0, bytes.Length);
+            clientStream.Flush();
         }
 
         public void SetPlayersList(List<Player> players)
