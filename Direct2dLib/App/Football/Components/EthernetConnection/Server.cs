@@ -71,6 +71,8 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
             NetworkController.PlayerIndex = 0;
             NetworkController.Server = this;
 
+            _newThread = new Thread(() => WriteAndReadMatch());
+
             OnStartGame?.Invoke();
         }
 
