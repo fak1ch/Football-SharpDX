@@ -17,14 +17,15 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 {
     public class Server
     {
-        private const string ip = "25.52.21.43";
+        private const string ip = "192.168.43.161";
         private const int port = 8080;
-        private const int maxPlayers = 4;
+        private const int maxPlayers = 2;
 
         public event Action OnStartGame;
 
         private List<TcpClient> _clients;
         private List<Player> _players;
+        private Thread _newThread;
         private Ball _ball;
         private Score _score;
         private BonusSpawner _bonusSpawner;
@@ -75,10 +76,14 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         public void StartWriteAndReadMatchInNewThread()
         {
-            ThreadPool.QueueUserWorkItem(WriteAndReadMatch);
+            if (_newThread.ThreadState != ThreadState.Running)
+            {
+                _newThread = new Thread(() => WriteAndReadMatch());
+                _newThread.Start();
+            }
         }
 
-        private void WriteAndReadMatch(Object stateInfo)
+        private void WriteAndReadMatch()
         {
             foreach (var client in _clients)
             {

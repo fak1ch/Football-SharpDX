@@ -15,7 +15,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 {
     public class Client
     {
-        private const string ip = "25.52.21.43";
+        private const string ip = "192.168.43.161";
         private const int port = 8080;
 
         public event Action OnStartGame;
@@ -24,6 +24,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         private TcpClient _tcpClient;
         private NetworkStream _serverStream;
+        private Thread _newThread;
 
         private List<Player> _players;
         private Ball _ball;
@@ -70,10 +71,14 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 
         public void StartWriteAndReadMatchInNewThread()
         {
-            ThreadPool.QueueUserWorkItem(WriteAndReadMatch);
+            if (_newThread.ThreadState != ThreadState.Running)
+            {
+                _newThread = new Thread(() => WriteAndReadMatch());
+                _newThread.Start();
+            }
         }
 
-        private void WriteAndReadMatch(Object stateInfo)
+        private void WriteAndReadMatch()
         {
             ClientData clientData = new ClientData()
             {
