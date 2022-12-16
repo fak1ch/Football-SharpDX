@@ -35,6 +35,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
     </Reference>
@@ -66,27 +69,46 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\CustomUnity\CollisionHandler.cs" />
-    <Compile Include="App\CustomUnity\Components\DefaultComponents\BoxCollider2D.cs" />
-    <Compile Include="App\CustomUnity\Components\DefaultComponents\CircleCollider2D.cs" />
-    <Compile Include="App\CustomUnity\Components\DefaultComponents\Component.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\Map\Ball.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\Gates\LeftGate.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\Gates\RightGate.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\Map\HorizontalColliders.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\Map\Match.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\Player\Player.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\Player\PlayerMovement.cs" />
-    <Compile Include="App\CustomUnity\Components\DefaultComponents\SpriteRenderer.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\Map\VerticalColliders.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\UI\Button.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\UI\PopUps\GameEndPopUp.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\UI\PopUps\MainMenuPopUp.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\UI\Score.cs" />
-    <Compile Include="App\CustomUnity\Components\MechanicComponents\UI\Timer.cs" />
+    <Compile Include="App\CustomUnity\Components\BoxCollider2D.cs" />
+    <Compile Include="App\CustomUnity\Components\CircleCollider2D.cs" />
+    <Compile Include="App\CustomUnity\Components\Component.cs" />
+    <Compile Include="App\CustomUnity\Utils\Converter.cs" />
+    <Compile Include="App\Football\Bonuses\Bonus.cs" />
+    <Compile Include="App\Football\Bonuses\BonusMaxSpeed.cs" />
+    <Compile Include="App\Football\Bonuses\BonusPlayerSpeed.cs" />
+    <Compile Include="App\Football\Bonuses\BonusSpawner.cs" />
+    <Compile Include="App\Football\Bonuses\BonusSpeedForPunch.cs" />
+    <Compile Include="App\Football\Components\EthernetConnection\Client.cs" />
+    <Compile Include="App\Football\Components\EthernetConnection\Datas\ClientData.cs" />
+    <Compile Include="App\Football\Components\EthernetConnection\Datas\ServerData.cs" />
+    <Compile Include="App\Football\Components\EthernetConnection\NetworkController.cs" />
+    <Compile Include="App\Football\Components\EthernetConnection\Server.cs" />
+    <Compile Include="App\Football\Components\Map\Ball.cs" />
+    <Compile Include="App\Football\Components\Gates\LeftGate.cs" />
+    <Compile Include="App\Football\Components\Gates\RightGate.cs" />
+    <Compile Include="App\Football\Components\Map\HorizontalColliders.cs" />
+    <Compile Include="App\Football\Components\Map\Match.cs" />
+    <Compile Include="App\Football\Components\Player\Player.cs" />
+    <Compile Include="App\Football\Components\Player\PlayerMovement.cs" />
+    <Compile Include="App\CustomUnity\Components\SpriteRenderer.cs" />
+    <Compile Include="App\Football\Components\Map\VerticalColliders.cs" />
+    <Compile Include="App\Football\Components\UI\Button.cs" />
+    <Compile Include="App\Football\Components\UI\PopUps\GameEndPopUp.cs" />
+    <Compile Include="App\Football\Components\UI\PopUps\MainMenuPopUp.cs" />
+    <Compile Include="App\Football\Components\UI\Score.cs" />
+    <Compile Include="App\Football\Components\UI\Timer.cs" />
     <Compile Include="App\CustomUnity\GameObject.cs" />
-    <Compile Include="App\CustomUnity\Components\DefaultComponents\Transform.cs" />
-    <Compile Include="App\CustomUnity\Scenes\Scenes\MainMenuScene.cs" />
-    <Compile Include="App\CustomUnity\Scenes\Scenes\MatchScene.cs" />
+    <Compile Include="App\CustomUnity\Components\Transform.cs" />
+    <Compile Include="App\Football\Decorator\BallDecorator.cs" />
+    <Compile Include="App\Football\Decorator\BonusMaxSpeed.cs" />
+    <Compile Include="App\Football\Decorator\BonusPlayerSpeed.cs" />
+    <Compile Include="App\Football\Decorator\BonusSpeedForPunch.cs" />
+    <Compile Include="App\Football\Decorator\IBall.cs" />
+    <Compile Include="App\Football\Decorator\IPlayer.cs" />
+    <Compile Include="App\Football\Decorator\PlayerDecorator.cs" />
+    <Compile Include="App\Football\Factory.cs" />
+    <Compile Include="App\Football\Scenes\MainMenuScene.cs" />
+    <Compile Include="App\Football\Scenes\MatchScene.cs" />
     <Compile Include="App\CustomUnity\Scenes\Scene.cs" />
     <Compile Include="App\CustomUnity\Scenes\SceneManager.cs" />
     <Compile Include="App\CustomUnity\Settings.cs" />
@@ -98,6 +120,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

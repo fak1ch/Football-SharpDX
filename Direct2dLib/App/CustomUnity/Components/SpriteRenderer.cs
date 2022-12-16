@@ -15,6 +15,8 @@ namespace Direct2dLib.App.CustomUnity.Components
         private float _width;
         private float _height;
 
+        public bool IsRenderer { get; set; } = true;
+
         public SpriteRenderer(GameObject gameObject, Bitmap bitmap, float width, float height) : base(gameObject)
         {
             _bitmap = bitmap;
@@ -24,6 +26,8 @@ namespace Direct2dLib.App.CustomUnity.Components
 
         public override void Update()
         {
+            if (!IsRenderer) return;
+
             DX2D.Instance.RenderTarget.DrawBitmap(_bitmap, GetBitmapRectangleF(), 1, BitmapInterpolationMode.NearestNeighbor);
         }
 

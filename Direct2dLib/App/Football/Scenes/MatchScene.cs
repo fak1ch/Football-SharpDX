@@ -4,6 +4,9 @@ using Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI;
 using Direct2dLib.App.CustomUnity.Components.MechanicComponents;
 using Direct2dLib.App.CustomUnity.Components;
 using SharpDX;
+using Direct2dLib.App.Football.Components.EthernetConnection;
+using Direct2dLib.App.Football.Bonuses;
+using Direct2dLib.App.Football;
 
 namespace Direct2dLib.App.CustomUnity.Scenes
 {
@@ -17,50 +20,34 @@ namespace Direct2dLib.App.CustomUnity.Scenes
             background.AddComponent(new SpriteRenderer(background,
                 DX2D.Instance.LoadBitmap("bg.jpg"),
                 DX2D.Instance.ScreenSize.Right, DX2D.Instance.ScreenSize.Bottom));
-            Instantiate(background);
+            _gameObjects.Add(background);
 
             #endregion
 
             #region Players
 
+            Factory factory = new Factory();
+
             Vector3 leftPlayer1Position = DX2D.Instance.ScreenCenter;
             leftPlayer1Position.X -= 100;
-            GameObject leftPlayer1 = new GameObject(leftPlayer1Position);
-            leftPlayer1.AddComponent(new SpriteRenderer(leftPlayer1,
-                DX2D.Instance.LoadBitmap("usa.png"),
-                100, 100));
-            leftPlayer1.AddComponent(new CircleCollider2D(leftPlayer1, 40, true));
-            leftPlayer1.AddComponent(new Player(leftPlayer1));
-            leftPlayer1.AddComponent(new PlayerMovement(leftPlayer1));
-            Instantiate(leftPlayer1);
+            GameObject leftPlayer1 = factory.CreatePlayerByIndex(0, "usa.png", leftPlayer1Position);
+            _gameObjects.Add(leftPlayer1);
 
-            Vector3 leftPlayer2Position = new Vector3(200, DX2D.Instance.ScreenCenter.Y, 0);
-            GameObject leftPlayer2 = new GameObject(leftPlayer2Position);
-            leftPlayer2.AddComponent(new SpriteRenderer(leftPlayer2,
-                DX2D.Instance.LoadBitmap("usa.png"),
-                100, 100));
-            leftPlayer2.AddComponent(new CircleCollider2D(leftPlayer2, 40, true));
-            leftPlayer2.AddComponent(new Player(leftPlayer2));
-            Instantiate(leftPlayer2);
+            Vector3 leftPlayer2Position = DX2D.Instance.ScreenCenter;
+            leftPlayer2Position.X = 200;
+            GameObject leftPlayer2 = factory.CreatePlayerByIndex(1, "usa.png", leftPlayer2Position);
+            _gameObjects.Add(leftPlayer2);
 
             Vector3 rightPlayer1Position = DX2D.Instance.ScreenCenter;
             rightPlayer1Position.X += 100;
-            GameObject rightPlayer1 = new GameObject(rightPlayer1Position);
-            rightPlayer1.AddComponent(new SpriteRenderer(rightPlayer1,
-                DX2D.Instance.LoadBitmap("belarus.png"),
-                95, 95));
-            rightPlayer1.AddComponent(new CircleCollider2D(rightPlayer1, 40, true));
-            rightPlayer1.AddComponent(new Player(rightPlayer1));
-            Instantiate(rightPlayer1);
+            GameObject rightPlayer1 = factory.CreatePlayerByIndex(2, "belarus.png", rightPlayer1Position);
+            _gameObjects.Add(rightPlayer1);
 
-            Vector3 rightPlayer2Position = new Vector3(DX2D.Instance.ScreenSize.Right - 200, DX2D.Instance.ScreenCenter.Y, 0);
-            GameObject rightPlayer2 = new GameObject(rightPlayer2Position);
-            rightPlayer2.AddComponent(new SpriteRenderer(rightPlayer2,
-                DX2D.Instance.LoadBitmap("belarus.png"),
-                95, 95));
-            rightPlayer2.AddComponent(new CircleCollider2D(rightPlayer2, 40, true));
-            rightPlayer2.AddComponent(new Player(rightPlayer2));
-            Instantiate(rightPlayer2);
+            Vector3 rightPlayer2Position = DX2D.Instance.ScreenCenter;
+            rightPlayer2Position.X *= 2;
+            rightPlayer2Position.X -= 200;
+            GameObject rightPlayer2 = factory.CreatePlayerByIndex(3, "belarus.png", rightPlayer2Position);
+            _gameObjects.Add(rightPlayer2);
 
             #endregion
 
@@ -71,8 +58,8 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 DX2D.Instance.LoadBitmap("ball.png"),
                 50, 50));
             ball.AddComponent(new CircleCollider2D(ball, 25, true));
-            ball.AddComponent(new Ball(ball, 20, 0.02f, 7));
-            Instantiate(ball);
+            Ball ballComponent = ball.AddComponent(new Ball(ball));
+            _gameObjects.Add(ball);
 
             #endregion
 
@@ -85,7 +72,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 100, 250));
             rightGate.AddComponent(new BoxCollider2D(rightGate, 10, 225, new Vector2(-25, 0), true));
             rightGate.AddComponent(new RightGate(rightGate));
-            Instantiate(rightGate);
+            _gameObjects.Add(rightGate);
 
             Vector3 leftGatePosition = new Vector3(35, DX2D.Instance.ScreenSize.Bottom / 2, 0);
             GameObject leftGate = new GameObject(leftGatePosition);
@@ -94,7 +81,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 100, 250));
             leftGate.AddComponent(new BoxCollider2D(leftGate, 10, 225, new Vector2(25, 0), true));
             leftGate.AddComponent(new LeftGate(leftGate));
-            Instantiate(leftGate);
+            _gameObjects.Add(leftGate);
 
             #endregion
 
@@ -110,7 +97,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 new Vector2(DX2D.Instance.ScreenSize.Right / 2, 20 + DX2D.Instance.ScreenSize.Bottom / 2)));
             collidersVertical.AddComponent(new BoxCollider2D(collidersVertical, DX2D.Instance.ScreenSize.Right, 10,
                 new Vector2(DX2D.Instance.ScreenSize.Right / 2, 20 + DX2D.Instance.ScreenSize.Bottom / -2)));
-            Instantiate(collidersVertical);
+            _gameObjects.Add(collidersVertical);
 
             GameObject collidersHorizontal = new GameObject(new Vector3(0, DX2D.Instance.ScreenCenter.Y - 20, 0));
             collidersHorizontal.AddComponent(new HorizontalColliders(collidersHorizontal));
@@ -122,7 +109,7 @@ namespace Direct2dLib.App.CustomUnity.Scenes
                 new Vector2(0, 0)));
             collidersHorizontal.AddComponent(new BoxCollider2D(collidersHorizontal, 10, DX2D.Instance.ScreenSize.Right,
                 new Vector2(DX2D.Instance.ScreenSize.Right, 0)));
-            Instantiate(collidersHorizontal);
+            _gameObjects.Add(collidersHorizontal);
 
             #endregion
 
@@ -130,16 +117,23 @@ namespace Direct2dLib.App.CustomUnity.Scenes
 
             GameObject gameEndPopUp = new GameObject();
             gameEndPopUp.AddComponent(new GameEndPopUp(gameEndPopUp));
-            Instantiate(gameEndPopUp);
+            _gameObjects.Add(gameEndPopUp);
 
             GameObject score = new GameObject();
             score.AddComponent(new Score(score));
-            Instantiate(score);
+            _gameObjects.Add(score);
 
             GameObject timer = new GameObject();
             timer.AddComponent(new Timer(timer));
-            Instantiate(timer);
+            _gameObjects.Add(timer);
 
+            #endregion
+
+            #region BonusSpawner
+            GameObject bonusSpawnerGameObject = new GameObject();
+            BonusSpawner bonusSpawnerComponent = bonusSpawnerGameObject
+                .AddComponent(new BonusSpawner(bonusSpawnerGameObject, ballComponent));
+            _gameObjects.Add(bonusSpawnerGameObject);
             #endregion
 
             #region Match
@@ -160,7 +154,19 @@ namespace Direct2dLib.App.CustomUnity.Scenes
             matchComponent.AddPlayerToTeamByName("Left", leftPlayer2.GetComponent<Player>());
             matchComponent.AddPlayerToTeamByName("Right", rightPlayer1.GetComponent<Player>());
             matchComponent.AddPlayerToTeamByName("Right", rightPlayer2.GetComponent<Player>());
-            Instantiate(match);
+            _gameObjects.Add(match);
+
+            NetworkController.Server?.SetPlayersList(matchComponent.Players);
+            NetworkController.Server?.SetBall(ballComponent);
+            NetworkController.Server?.SetScore(score.GetComponent<Score>());
+            NetworkController.Server?.SetBonusSpawner(bonusSpawnerComponent);
+            NetworkController.Server?.SetMatch(match.GetComponent<Match>());
+
+            NetworkController.Client?.SetPlayersList(matchComponent.Players);
+            NetworkController.Client?.SetBall(ballComponent);
+            NetworkController.Client?.SetScore(score.GetComponent<Score>());
+            NetworkController.Client?.SetBonusSpawner(bonusSpawnerComponent);
+            NetworkController.Client?.SetMatch(match.GetComponent<Match>());
 
             #endregion
         }

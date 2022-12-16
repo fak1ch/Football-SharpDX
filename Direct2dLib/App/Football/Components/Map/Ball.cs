@@ -8,9 +8,9 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
 {
     public class Ball : Component
     {
-        private float _maxSpeed;
-        private float _fadeSpeed;
-        private float _speedForPunch;
+        private float _startMaxSpeed = 10;
+        private float _fadeSpeed = 0.02f;
+        private float _startSpeedForPunch = 4;
         private float _correctAngleValue = 0.25f;
 
         private Vector2 _velocity;
@@ -19,13 +19,19 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
 
         private Vector3 _startPosition;
 
-        public Ball(GameObject go, float maxSpeed, float fadeSpeed, float speedForPunch) : base(go)
-        {
-            _maxSpeed = maxSpeed;
-            _fadeSpeed = fadeSpeed;
-            _speedForPunch = speedForPunch;
+        private bool _bonusMaxSpeedIsWork = false;
+        private float _bonusMaxSpeedDurationTemp;
+        private float _maxSpeed;
 
+        private bool _bonusSpeedForPunchIsWork = false;
+        private float _bonusSpeedForPunchDuration;
+        private float _speedForPunch;
+
+        public Ball(GameObject go) : base(go)
+        {
             _startPosition = transform.position;
+            _maxSpeed = _startMaxSpeed;
+            _speedForPunch = _startSpeedForPunch;
         }
 
         public override void Update()
@@ -56,6 +62,26 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
             {
                 float value = rnd.NextFloat(-_correctAngleValue, _correctAngleValue);
                 _velocity.X += value;
+            }
+
+            if (_bonusMaxSpeedIsWork)
+            {
+                _bonusMaxSpeedDurationTemp -= 0.0166666667f;
+                if (_bonusMaxSpeedDurationTemp <= 0)
+                {
+                    _bonusMaxSpeedIsWork = false;
+                    _maxSpeed = _startMaxSpeed;
+                }
+            }
+
+            if (_bonusSpeedForPunchIsWork)
+            {
+                _bonusSpeedForPunchDuration -= 0.0166666667f;
+                if (_bonusSpeedForPunchDuration <= 0)
+                {
+                    _bonusSpeedForPunchIsWork = false;
+                    _speedForPunch = _startSpeedForPunch;
+                }
             }
         }
 
@@ -96,6 +122,24 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents
         {
             _velocity.X = MathUtil.Lerp(_velocity.X, 0, _fadeSpeed);
             _velocity.Y = MathUtil.Lerp(_velocity.Y, 0, _fadeSpeed);
+        }
+
+        public void IncreaseMaxSpeedBonus(float addMaxSpeedValue, float bonusDuration)
+        {
+            if (_bonusMaxSpeedIsWork) return;
+            _bonusMaxSpeedIsWork = true;
+
+            _maxSpeed += addMaxSpeedValue;
+            _bonusMaxSpeedDurationTemp = bonusDuration;
+        }
+
+        public void IncreaseSpeedForPunchBonus(float addSpeedForPunchValue, float bonusDuration)
+        {
+            if (_bonusSpeedForPunchIsWork) return;
+            _bonusSpeedForPunchIsWork = true;
+
+            _speedForPunch += addSpeedForPunchValue;
+            _bonusSpeedForPunchDuration = bonusDuration;
         }
 
         public void ReturnToStartPosition()

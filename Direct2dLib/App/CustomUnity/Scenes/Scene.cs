@@ -6,12 +6,21 @@ namespace Direct2dLib.App.CustomUnity.Scenes
     {
         public abstract void Initialize();
 
-        private static List<GameObject> _gameObjects;
+        protected static List<GameObject> _gameObjects;
 
         public Scene()
         {
             _gameObjects = new List<GameObject>();
             Initialize();
+            Start();
+        }
+
+        public void Start()
+        {
+            for (int i = 0; i < _gameObjects.Count; i++)
+            {
+                _gameObjects[i].Start();
+            }
         }
 
         public void Update()

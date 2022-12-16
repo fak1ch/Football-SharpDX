@@ -7,14 +7,15 @@ namespace Direct2dLib.App.CustomUnity.Components
         private float _width;
         private float _height;
         private Vector2 _offset;
-        private bool _isSearchCollision;
+
+        public bool IsSearchCollision { get; set; }
 
         public BoxCollider2D(GameObject gameObject, float width, float height, Vector2 offset, bool isSearchCollision = false) : base(gameObject)
         {
             _width = width;
             _height = height;
             _offset = offset;
-            _isSearchCollision = isSearchCollision;
+            IsSearchCollision = isSearchCollision;
 
             CollisionHandler.Instance.AddBoxCollider2D(this);
         }
@@ -28,7 +29,7 @@ namespace Direct2dLib.App.CustomUnity.Components
                     DX2D.Instance.RedBrush);
             }
 
-            if (_isSearchCollision)
+            if (IsSearchCollision)
             {
                 CollisionHandler.Instance.CheckCollision(this);
             }

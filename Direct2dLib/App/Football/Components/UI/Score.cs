@@ -17,6 +17,8 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI
         public bool WinLeftTeam => LeftTeamPoint == _pointsForWin;
         public bool WinRightTeam => RightTeamPoints == _pointsForWin;
 
+        public string ScoreString => $"{LeftTeamPoint} : {RightTeamPoints}";
+
         public Score(GameObject go) : base(go)
         {
         }
@@ -30,7 +32,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.UI
         {
             Vector3 screenCenter = DX2D.Instance.ScreenCenter;
             RectangleF textRectangle = new RectangleF(screenCenter.X - 200, 0, 400, 100);
-            DX2D.Instance.RenderTarget.DrawText($"{LeftTeamPoint} : {RightTeamPoints}", DX2D.Instance.TextFormatMessage, textRectangle, DX2D.Instance.WhiteBrush);
+            DX2D.Instance.RenderTarget.DrawText(ScoreString, DX2D.Instance.TextFormatMessage, textRectangle, DX2D.Instance.WhiteBrush);
         }
 
         public void RestartScore()
