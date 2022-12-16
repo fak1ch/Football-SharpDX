@@ -6,6 +6,7 @@ using Direct2dLib.App.CustomUnity.Components;
 using SharpDX;
 using Direct2dLib.App.Football.Components.EthernetConnection;
 using Direct2dLib.App.Football.Bonuses;
+using Direct2dLib.App.Football;
 
 namespace Direct2dLib.App.CustomUnity.Scenes
 {
@@ -25,45 +26,27 @@ namespace Direct2dLib.App.CustomUnity.Scenes
 
             #region Players
 
+            Factory factory = new Factory();
+
             Vector3 leftPlayer1Position = DX2D.Instance.ScreenCenter;
             leftPlayer1Position.X -= 100;
-            GameObject leftPlayer1 = new GameObject(leftPlayer1Position);
-            leftPlayer1.AddComponent(new SpriteRenderer(leftPlayer1,
-                DX2D.Instance.LoadBitmap("usa.png"),
-                100, 100));
-            leftPlayer1.AddComponent(new CircleCollider2D(leftPlayer1, 40, true));
-            leftPlayer1.AddComponent(new Player(leftPlayer1, 0));
+            GameObject leftPlayer1 = factory.CreatePlayerByIndex(0, "usa.png", leftPlayer1Position);
             _gameObjects.Add(leftPlayer1);
 
             Vector3 leftPlayer2Position = DX2D.Instance.ScreenCenter;
             leftPlayer2Position.X = 200;
-            GameObject leftPlayer2 = new GameObject(leftPlayer2Position);
-            leftPlayer2.AddComponent(new SpriteRenderer(leftPlayer2,
-                DX2D.Instance.LoadBitmap("usa.png"),
-                100, 100));
-            leftPlayer2.AddComponent(new CircleCollider2D(leftPlayer2, 40, true));
-            leftPlayer2.AddComponent(new Player(leftPlayer2, 1));
+            GameObject leftPlayer2 = factory.CreatePlayerByIndex(1, "usa.png", leftPlayer2Position);
             _gameObjects.Add(leftPlayer2);
 
             Vector3 rightPlayer1Position = DX2D.Instance.ScreenCenter;
             rightPlayer1Position.X += 100;
-            GameObject rightPlayer1 = new GameObject(rightPlayer1Position);
-            rightPlayer1.AddComponent(new SpriteRenderer(rightPlayer1,
-                DX2D.Instance.LoadBitmap("belarus.png"),
-                95, 95));
-            rightPlayer1.AddComponent(new CircleCollider2D(rightPlayer1, 40, true));
-            rightPlayer1.AddComponent(new Player(rightPlayer1, 2));
+            GameObject rightPlayer1 = factory.CreatePlayerByIndex(2, "belarus.png", rightPlayer1Position);
             _gameObjects.Add(rightPlayer1);
 
             Vector3 rightPlayer2Position = DX2D.Instance.ScreenCenter;
             rightPlayer2Position.X *= 2;
             rightPlayer2Position.X -= 200;
-            GameObject rightPlayer2 = new GameObject(rightPlayer2Position);
-            rightPlayer2.AddComponent(new SpriteRenderer(rightPlayer2,
-                DX2D.Instance.LoadBitmap("belarus.png"),
-                95, 95));
-            rightPlayer2.AddComponent(new CircleCollider2D(rightPlayer2, 40, true));
-            rightPlayer2.AddComponent(new Player(rightPlayer2, 3));
+            GameObject rightPlayer2 = factory.CreatePlayerByIndex(3, "belarus.png", rightPlayer2Position);
             _gameObjects.Add(rightPlayer2);
 
             #endregion

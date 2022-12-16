@@ -99,6 +99,14 @@
     <Compile Include="App\Football\Components\UI\Timer.cs" />
     <Compile Include="App\CustomUnity\GameObject.cs" />
     <Compile Include="App\CustomUnity\Components\Transform.cs" />
+    <Compile Include="App\Football\Decorator\BallDecorator.cs" />
+    <Compile Include="App\Football\Decorator\BonusMaxSpeed.cs" />
+    <Compile Include="App\Football\Decorator\BonusPlayerSpeed.cs" />
+    <Compile Include="App\Football\Decorator\BonusSpeedForPunch.cs" />
+    <Compile Include="App\Football\Decorator\IBall.cs" />
+    <Compile Include="App\Football\Decorator\IPlayer.cs" />
+    <Compile Include="App\Football\Decorator\PlayerDecorator.cs" />
+    <Compile Include="App\Football\Factory.cs" />
     <Compile Include="App\Football\Scenes\MainMenuScene.cs" />
     <Compile Include="App\Football\Scenes\MatchScene.cs" />
     <Compile Include="App\CustomUnity\Scenes\Scene.cs" />

@@ -15,7 +15,7 @@ namespace Direct2dLib.App.CustomUnity.Components.MechanicComponents.EthernetConn
 {
     public class Client
     {
-        private const string ip = "192.168.43.161";
+        private const string ip = "192.168.100.2";
         private const int port = 8080;
 
         public event Action OnStartGame;
